@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:et="http://ar.com.easytech/easyfaces">
+
+<h:head>
+  <title><h:outputText value="#{msgs['title']}" /></title>
+</h:head>
+<h:body>
+
+  <h:outputStylesheet name="style.css" library="css" />
+  <h:outputScript library="js" target="head" name="jquery-1.7.1.min.js" />
+  <h:outputScript library="js" target="head"
+    name="jquery-ui-1.8.18.custom.min.js" />
+
+  <div id="container">
+
+    <h:form id="frm">
+
+      <h1>
+        <h:outputText value="#{msgs['title']}" />
+      </h1>
+
+      <div id="container" class="container">
+        <ui:repeat var="row" value="#{homeBean.data}" id="dnd" >
+          <h:panelGroup layout="block" id="draggable" styleClass="draggable">
+            <h:outputText value="#{row}" />
+          </h:panelGroup>
+          <et:draggable  for="draggable" draggableSelector=".draggable" containTo="parent" revert="invalid" />
+        </ui:repeat>
+
+
+        <h:panelGroup layout="block" id="droppable" styleClass="droppable">
+          <p>Drop Here!</p>
+        </h:panelGroup>
+      </div>
+
+	<h:dataTable id="selectedItems" var="data" value="#{homeBean.selectedRows}">
+		<h:column>
+			<h:outputText value="#{data.name}" />
+		</h:column>
+	</h:dataTable>
+      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" >
+         <f:ajax listener="#{homeBean.objectDropped}" render="@form" event="drop" />
+      </et:droppable>
+    </h:form>
+            
+  </div>  
+</h:body>
+</html> 

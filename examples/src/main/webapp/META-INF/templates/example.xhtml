@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title><h:outputText value="#{msgs['title']}"/></title>
+</h:head>
+<h:body>
+  <h:outputStylesheet name="style.css" library="css"/>
+  <div id="container">
+
+    <ui:insert name="header">
+        <h1><h:outputText value="#{msgs['title']}"/></h1>    
+    </ui:insert>
+
+    <ui:insert name="content"/>
+    
+    <ui:insert name="footer">
+        <h:panelGrid>
+            <h:link value="#{msgs['home']}" outcome="home"/>
+        </h:panelGrid>
+    </ui:insert>
+  </div>
+</h:body>
+</html>

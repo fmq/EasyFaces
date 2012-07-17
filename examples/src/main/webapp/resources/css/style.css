@@ -1,0 +1,51 @@
+body {
+  font-family: tahoma, arial, helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.container {
+  border: 1px solid red;
+  margin: 10px auto;
+  width: 900px;
+  height: 300px;
+  background-color: white;
+  padding: 3px;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.draggable {
+  border: 1px solid #ccc;
+  width: 100px;
+  height: 30px;
+  padding: 0.5em;
+  float: left;
+  margin: 10px 10px 10px 0;
+}
+
+.droppable {
+  border: 1px solid #F6A828;
+  width: 150px;
+  height: 150px;
+  padding: 0.5em;
+  float: left;
+  margin: 10px;
+}
+
+.ui-state-hover {
+  border: 1px solid #fbcb09;
+  background: #fdf5ce;
+  font-weight: bold;
+  color: #c77405;
+  outline: none;
+}
+
+.ui-state-active {
+  border: 1px solid #fbd850;
+  background: #ffffff;
+  font-weight: bold;
+  color: #eb8f00;
+  outline: none;
+}
