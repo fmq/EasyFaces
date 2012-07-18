@@ -56,7 +56,7 @@
   </build>
   
   <modules>
-      <module>library</module>
+      <module>core</module>
       <module>examples</module>
   </modules>
   

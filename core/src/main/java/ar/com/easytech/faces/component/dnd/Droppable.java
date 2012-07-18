@@ -22,27 +22,34 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.FacesException;
+import javax.faces.application.Application;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIData;
 import javax.faces.component.UINamingContainer;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.FacesEvent;
 
 import ar.com.easytech.faces.event.DragDropEvent;
 
 @FacesComponent(Droppable.COMPONENT_TYPE)
+@ResourceDependencies({
+	@ResourceDependency(library="javax.faces", name="jsf.js"),
+})
 public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	public static final String COMPONENT_TYPE = "ar.com.easytech.Droppable";
 	public static final String DEFAULT_RENDERER_TYPE = "ar.com.easytech.DroppableRenderer";
@@ -223,6 +230,10 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		ClientBehaviorContext behaviorContext =
 				  ClientBehaviorContext.createClientBehaviorContext(context,this, DEFAULT_EVENT, getClientId(context), null);
 		
+		Application application = context.getApplication();
+        AjaxBehavior behavior = (AjaxBehavior)application.createBehavior(AjaxBehavior.BEHAVIOR_ID);
+		addClientBehavior("drop", behavior);
+		
 		ResponseWriter writer = context.getResponseWriter();
 		String clientId = getClientId(context);
 		UIComponent targetComponent = findComponent(getFor());
@@ -247,11 +258,13 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		writer.write(" jsf.ajax.request(this,event,{execute: '" + getClientId() +"', 'javax.faces.behavior.event': 'drop', sourceId: ui.draggable.attr('id') , targetId: $(this).attr('id')}); ");
 		writer.write(" } ");
 		
-		Map<String,List<ClientBehavior>> behaviors = getClientBehaviors();
-		if (behaviors.containsKey(DEFAULT_EVENT) ) {
-			String drop = behaviors.get(DEFAULT_EVENT).get(0).getScript(behaviorContext);
-			writer.writeAttribute("drop:", "alert('Hello!');", null);
-		}
+//		Map<String,List<ClientBehavior>> behaviors = getClientBehaviors();
+//		if (behaviors.containsKey(DEFAULT_EVENT) ) {
+//			String drop = behaviors.get(DEFAULT_EVENT).get(0).getScript(behaviorContext);
+//			writer.writeAttribute("drop:", drop, null);
+//		}
+		
+		encodeClientBehaviors(context, this);
 		
 		writer.write("});");
 		writer.write("});");
@@ -263,4 +276,51 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	private boolean isRequestSource(FacesContext context) {
 		return this.getClientId(context).equals(context.getExternalContext().getRequestParameterMap().get("javax.faces.source"));
 	}
+	
+	protected void encodeClientBehaviors(FacesContext context, ClientBehaviorHolder component) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        
+        //ClientBehaviors
+        Map<String,List<ClientBehavior>> behaviorEvents = component.getClientBehaviors();
+
+        if(!behaviorEvents.isEmpty()) {
+            String clientId = ((UIComponent) component).getClientId(context);
+            List<ClientBehaviorContext.Parameter> params = Collections.emptyList();
+
+            writer.write(",behaviors:{");
+
+            for(Iterator<String> eventIterator = behaviorEvents.keySet().iterator(); eventIterator.hasNext();) {
+                String event = eventIterator.next();
+                String domEvent = event;
+
+                if(event.equalsIgnoreCase("valueChange"))       //editable value holders
+                    domEvent = "change";
+                else if(event.equalsIgnoreCase("action"))       //commands
+                    domEvent = "click";
+
+                writer.write(domEvent + ":");
+
+                writer.write("function(event) {");
+                for(Iterator<ClientBehavior> behaviorIter = behaviorEvents.get(event).iterator(); behaviorIter.hasNext();) {
+                    ClientBehavior behavior = behaviorIter.next();
+                    ClientBehaviorContext cbc = ClientBehaviorContext.createClientBehaviorContext(context, (UIComponent) component, event, clientId, params);
+                    String script = behavior.getScript(cbc);    //could be null if disabled
+
+                    if(script != null) {
+                        writer.write(script);
+                    }
+                }
+                writer.write("}");
+
+                if(eventIterator.hasNext()) {
+                    writer.write(",");
+                }
+            }
+
+            writer.write("}");
+        }
+    }
+
+	
 }
+
