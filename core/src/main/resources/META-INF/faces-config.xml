@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="
+        http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <!--  Renderes para HTML5 -->
+    <render-kit>
+	    <renderer>
+	        <component-family>javax.faces.Input</component-family>
+	        <renderer-type>javax.faces.Text</renderer-type>
+	        <renderer-class>ar.com.easytech.faces.renderer.InputRenderer</renderer-class>
+	    </renderer>
+	    <renderer>
+	        <component-family>javax.faces.Input</component-family>
+	        <renderer-type>javax.faces.Secret</renderer-type>
+	        <renderer-class>ar.com.easytech.faces.renderer.InputSecretRenderer</renderer-class>
+	    </renderer>
+	    <renderer>
+	        <component-family>javax.faces.Command</component-family>
+	        <renderer-type>javax.faces.Button</renderer-type>
+	        <renderer-class>ar.com.easytech.faces.renderer.CommandButtonRenderer</renderer-class>
+	    </renderer>
+	    <renderer>
+	        <component-family>javax.faces.Command</component-family>
+	        <renderer-type>javax.faces.Link</renderer-type>
+	        <renderer-class>ar.com.easytech.faces.renderer.CommandLinkRenderer</renderer-class>
+	    </renderer>
+	</render-kit>
+</faces-config>
