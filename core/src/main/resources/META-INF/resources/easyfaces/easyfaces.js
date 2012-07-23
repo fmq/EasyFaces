@@ -8,7 +8,8 @@ EasyFaces = {
 		var ids = data.split(",");
 		// loop and add class
 		for (var i = 0; i < ids.length; i++) {
-			jQuery(this.escapeId(ids[i])).addClass(styleClass);
+			var obj = document.getElementById(ids[i]);
+			$(obj).addClass(styleClass);
 		}
 	}
 		

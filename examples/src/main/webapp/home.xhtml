@@ -12,6 +12,17 @@
 </h:head>
 <h:body>
 
+	<style>
+		.error {
+			color: red;
+			border: 1px solid red;
+		}
+		
+		.error-blue {
+			color: blue;
+			border: 1px solid blue;
+		}
+	</style>
   <h:outputStylesheet name="style.css" library="css" />
   <h:outputScript library="js" target="head" name="jquery-1.7.1.min.js" />
   <h:outputScript library="javax.faces" target="head" name="jsf.js" />
@@ -19,14 +30,15 @@
 
   <div id="container">
 
-	<h:form id="test">
-	
+	<h:form id="test" prependId="false" >
+		<et:styleErrors styleClass="error-blue" />
+		<h:messages id="msg" />
 		<h:inputText id="field1" required="true" placeholder="Test.." />
 		<h:inputText id="field2" required="true" placeholder="Test 2.." />
-		<h:commandButton value="Test" >
-			<f:ajax render="@form" submit="@form" />
-		</h:commandButton>	
-	<h:form>
+		<h:commandButton value="Test" >	
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+	</h:form>
     <h:form id="frm">
 
       <h1>
@@ -52,7 +64,7 @@
 			<h:outputText value="#{data.name}" />
 		</h:column>
 	</h:dataTable>
-      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" />
+      <!--et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" /-->
          
     </h:form>
             

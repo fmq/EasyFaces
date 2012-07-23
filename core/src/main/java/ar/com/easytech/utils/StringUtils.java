@@ -18,7 +18,7 @@ public class StringUtils {
 		for (String obj : invalidIds) {
 			if (string.length() > 0)
 				string.append(delimiter);
-			string.append(obj).append(delimiter);
+			string.append(obj);
 		}
 		
 		return string.toString().replace(delimiter+"$", "");

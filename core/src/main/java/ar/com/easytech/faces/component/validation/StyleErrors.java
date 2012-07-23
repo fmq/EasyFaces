@@ -59,7 +59,7 @@ public class StyleErrors extends JavaScriptComponentBase {
 			for (UIComponent component : form.getChildren()) {
 				if (component instanceof UIInput 
 						&& !((UIInput)component).isValid()) 
-					invalidIds.add(((UIInput)component).getId());
+					invalidIds.add(((UIInput)component).getClientId());
 			}
 			// now generate the list as array and add to the call
 			StringBuilder theCall = new StringBuilder();

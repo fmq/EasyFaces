@@ -110,4 +110,38 @@
 			<type>javax.faces.component.UIComponent</type>
 		</attribute>
 	</tag>
+	<tag>
+		<tag-name>styleErrors</tag-name>
+		<component>
+			<component-type>ar.easyfaces.js.StyleErrors</component-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<description>Class to set to invalid Inputs. If none provided error will be used.</description>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>N/A.</description>
+			<name>setFocus</name>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>script</tag-name>
+		<component>
+			<component-type>ar.easyfaces.js.script</component-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<description>Class to set to invalid Inputs. If none provided error will be used.</description>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>N/A.</description>
+			<name>setFocus</name>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
 </facelet-taglib>
