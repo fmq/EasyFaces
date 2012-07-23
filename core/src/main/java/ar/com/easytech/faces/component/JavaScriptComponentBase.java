@@ -35,16 +35,17 @@ public class JavaScriptComponentBase extends UIComponentBase {
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException {
 
-		ResponseWriter writer = context.getResponseWriter();
-
-		String clientId = getClientId(context);
-		writer.startElement("script", null);
-		writer.writeAttribute("id", clientId + "_js", null);
-		writer.writeAttribute("type", "text/javascript", null);
-		for (UIComponent child : getChildren()) {
-			child.encodeAll(context);
+		if (context.isPostback() ) {
+			
+			ResponseWriter writer = context.getResponseWriter();
+			String clientId = getClientId(context);
+			writer.startElement("script", null);
+			writer.writeAttribute("id", clientId + "_js", null);
+			writer.writeAttribute("type", "text/javascript", null);
+			for (UIComponent child : getChildren()) {
+				child.encodeAll(context);
+			}
+			writer.endElement("script");
 		}
-		writer.endElement("script");
-
 	}
 }

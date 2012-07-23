@@ -40,7 +40,7 @@ public class StyleErrors extends JavaScriptComponentBase {
 		// Get the form
 		UIViewRoot viewRoot = context.getViewRoot();
 		UIForm form = null;
-		if (context.isPostback() ) {
+		if (context.isPostback() && context.isValidationFailed()) {
 			for (String key : context.getExternalContext().getRequestParameterMap().keySet()) {
 				if (!key.startsWith("faces")) {
 					UIComponent component = viewRoot.findComponent(key);
