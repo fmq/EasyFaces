@@ -1,6 +1,9 @@
 package ar.com.easytech.faces.renderer;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -23,6 +26,8 @@ import com.sun.faces.renderkit.html_basic.TextRenderer;
 			   rendererType = "javax.faces.Text")
 public class InputRenderer extends TextRenderer {
 
+	private final String[] attrs = {"autocomplete", "autofocus", "list", "pattern", "placeholder"};
+	
 	@Override
 	protected void getEndTextToRender(FacesContext context, UIComponent component,
 			String currentValue) throws IOException {
@@ -40,11 +45,13 @@ public class InputRenderer extends TextRenderer {
 	                throws IOException {
 	            super.startElement(name, component);
 	            if(name!=null && name.equals("input")){
-	            	// Placeholder
-	                String attribute = (String)component.getAttributes().get("placeholder");
-	                if (!StringUtils.isEmpty(attribute)) {
-	                    super.writeAttribute("placeholder", attribute, "placeholder");
-	                } 
+	            	// Attributes
+	            	for (String attr : attrs ) {
+		                String attribute = (String)component.getAttributes().get(attr);
+		                if (!StringUtils.isEmpty(attribute)) {
+		                    super.writeAttribute(attr, attribute, attr);
+		                }
+	            	}
 	                // Data-*
 	                for (String key : component.getAttributes().keySet()) {
 	                	if (key.startsWith("data-"))
@@ -58,5 +65,5 @@ public class InputRenderer extends TextRenderer {
 	    context.setResponseWriter(originalResponseWriter);
 	}
 	
-
+	
 }
