@@ -12,6 +12,13 @@ EasyFaces = {
 			$(obj).addClass(styleClass);
 		}
 	}
+	
+	setFocus : function(id) {
+		
+		var element = document.getElementById(id);
+		
+		
+	}
 		
 	
 }
