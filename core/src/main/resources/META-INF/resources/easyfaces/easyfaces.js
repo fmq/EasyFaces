@@ -12,6 +12,10 @@ EasyFaces = {
 			$(obj).addClass(styleClass);
 		}
 	},
+	
+	setFocus : function(id) {
+		var element = document.getElementById(id);
+	} ,
 		
 	blockContent : function(data, options) {
         var css;
@@ -51,7 +55,7 @@ EasyFaces = {
         case "success":
                 jQuery(options.what).unblock();
                 break;
-        }
+        	}
 	},
 
 	oncomplete : function(data, block, callBack) {
