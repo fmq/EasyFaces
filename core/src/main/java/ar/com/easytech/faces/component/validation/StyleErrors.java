@@ -2,7 +2,6 @@ package ar.com.easytech.faces.component.validation;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +13,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIOutput;
-import javax.faces.component.UIViewRoot;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
@@ -22,6 +20,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import ar.com.easytech.faces.component.JavaScriptComponentBase;
+import ar.com.easytech.utils.ComponentUtils;
 import ar.com.easytech.utils.StringUtils;
 
 @FacesComponent(StyleErrors.COMPONENT_TYPE)
@@ -43,40 +42,52 @@ public class StyleErrors extends JavaScriptComponentBase {
 	@Override
 	public void encodeChildren(FacesContext context) throws IOException {
 		
+		UIOutput theComponent = (UIOutput) getChildren().get(0);
+		theComponent.setValue(null);
 		//I just need to add &ltscript&gt EasyFaces.styleErrors(ids,style); &ltscript&gt
 		// So I create my component (it's actually only the script)
 		// Get the form that encloses the component
 		if (context.isPostback() && context.isValidationFailed()) {
-			UIForm form = getComponentForm(this);
 			
-			if (form == null)
-				return;
+			List<UIForm> forms = new ArrayList<UIForm>();
 			
-			final List<String> invalidIds = new ArrayList<String>();
-			// Tried to loop throgh childern but it was almost imposible..
-			// Fortunatly.. visitTree does the trick
-			form.visitTree(VisitContext.createVisitContext(context, null, FORM_TREE_HINTS), new VisitCallback() {
-				public VisitResult visit(VisitContext context, UIComponent component) {
-					if (component instanceof UIInput) {
-			            UIInput input = (UIInput) component;
-			            if (!input.isValid()) {
-			            	invalidIds.add(((UIInput)component).getClientId());
-			            }
-			        }
-					
-					return VisitResult.ACCEPT;
+			// If component that needs validation is specified get it's
+			// form.. (it should always be a form anyway..
+			if (getFor() != null) {
+				// Search for the form of the component..
+				forms.add(ComponentUtils.getComponentForm(ComponentUtils.getComponentById(getFor())));
+			} else {
+				// if for is null.. I have to assume that all forms must be scanned.. 
+				forms.addAll(ComponentUtils.getAllFormsForView());
+			}
+			
+			for (UIForm form : forms) {
+			
+				final List<String> invalidIds = new ArrayList<String>();
+				// Tried to loop throgh childern but it was almost imposible..
+				// Fortunatly.. visitTree does the trick
+				form.visitTree(VisitContext.createVisitContext(context, null, FORM_TREE_HINTS), new VisitCallback() {
+					public VisitResult visit(VisitContext context, UIComponent component) {
+						if (component instanceof UIInput) {
+				            UIInput input = (UIInput) component;
+				            if (!input.isValid()) {
+				            	invalidIds.add(((UIInput)component).getClientId());
+				            }
+				        }
+						
+						return VisitResult.ACCEPT;
+					}
+				});
+				if (invalidIds.size() > 0) {
+					// now generate the list as array and add to the call
+					StringBuilder theCall = new StringBuilder();
+					theCall.append("EasyFaces.styleErrors('");
+					theCall.append(StringUtils.listAsString(invalidIds, ",")).append("','");
+					String errorClass = getStyleClass() == null ? "error" : getStyleClass();
+					theCall.append(errorClass).append("')");
+					//Set the compoent that was created in instantiation
+					theComponent.setValue(theCall.toString());
 				}
-			});
-			if (invalidIds.size() > 0) {
-				// now generate the list as array and add to the call
-				StringBuilder theCall = new StringBuilder();
-				theCall.append("EasyFaces.styleErrors('");
-				theCall.append(StringUtils.listAsString(invalidIds, ",")).append("','");
-				String errorClass = getStyleClass() == null ? "error" : getStyleClass();
-				theCall.append(errorClass).append("');");
-				//Set the compoent that was created in instantiation
-				UIOutput theComponent = (UIOutput) getChildren().get(0);
-				theComponent.setValue(theCall.toString());
 			}
 		}
 		
@@ -85,30 +96,7 @@ public class StyleErrors extends JavaScriptComponentBase {
 	
 	}
 	
-	public UIForm getComponentForm(UIComponent component) {
-		
-		UIForm form = null;
-		// IF the component is a form.. just return that
-		if (component instanceof UIForm)
-			return (UIForm)component;
-		// IF the parent is the form.. return that...
-		if (component.getParent() instanceof UIForm)
-			return (UIForm)this.getParent();
-		
-		//else.. Cycle throw the component parents to search for the form..
-		UIComponent parent = this.getParent();
-		
-		while (parent.getParent() != null)
-			if (parent.getParent() instanceof UIForm) {
-				form = (UIForm) parent.getParent();
-				break;
-			} else
-				parent = parent.getParent();
-		
-		
-		return form;
-		
-	}
+	
 	public String getStyleClass() {
         return (String) getStateHelper().eval(PropertyKeys.styleClass);
 	}
@@ -124,9 +112,17 @@ public class StyleErrors extends JavaScriptComponentBase {
 	public void setSetFocus(String setFocus) {
 		getStateHelper().put(PropertyKeys.setFocus, setFocus);
 	}
+
+	public String getFor() {
+		return (String) getStateHelper().eval(PropertyKeys.forVal);
+	}
+
+	public void setFor(String forParam) {
+		getStateHelper().put(PropertyKeys.forVal, forParam);
+	}
 	
 	protected enum PropertyKeys {
-		styleClass, setFocus;
+		forVal("for"), styleClass, setFocus;
 		String c;
 
 		PropertyKeys() {

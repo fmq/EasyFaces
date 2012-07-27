@@ -58,11 +58,7 @@ EasyFaces = {
         	}
 	},
 
-	oncomplete : function(data, block, callBack) {
-
-		if (block && block.doBlock == 'true') {
-			blockContent(data, block.options);
-		}
+	oncomplete : function(data, callBack) {
 
 		if (callBack != null) {
 			switch (data.status) {
