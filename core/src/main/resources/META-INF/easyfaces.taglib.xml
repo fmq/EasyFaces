@@ -6,7 +6,7 @@
  <tag>
   <tag-name>draggable</tag-name>
   <component>
-   <component-type>ar.com.easytech.Draggable</component-type>
+   <component-type>ar.com.easyfaces.Draggable</component-type>
    <handler-class/>
   </component>
   <attribute>
@@ -61,7 +61,8 @@
  <tag>
   <tag-name>droppable</tag-name>
   <component>
-   <component-type>ar.com.easytech.Droppable</component-type>
+   <component-type>ar.com.easyfaces.Droppable</component-type>
+   <renderer-type>ar.com.easyfaces.DroppableRenderer</renderer-type>
    <handler-class/>
   </component>
   <attribute>

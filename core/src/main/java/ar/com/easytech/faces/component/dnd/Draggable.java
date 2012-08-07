@@ -8,17 +8,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.render.Renderer;
 
 @FacesComponent(Draggable.COMPONENT_TYPE)
 public class Draggable extends UIComponentBase  {
-	public static final String COMPONENT_TYPE = "ar.com.easytech.Draggable";
-	public static final String DEFAULT_RENDERER_TYPE = "ar.com.easytech.DraggableRenderer";
+	
+	public static final String COMPONENT_TYPE = "ar.com.easyfaces.Draggable";
+	public static final String DEFAULT_RENDERER_TYPE = "ar.com.easyfaces.DraggableRenderer";
 	public static final String COMPONENT_FAMILY = "javax.faces.Output";
 
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
 
+	
 	// property: for
 	public String getFor() {
 		return (String) getStateHelper().eval(PropertyKeys.forVal);

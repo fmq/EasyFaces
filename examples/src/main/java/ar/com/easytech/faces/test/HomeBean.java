@@ -6,7 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
-import ar.com.easytech.faces.event.DragDropEvent;
+import ar.com.easytech.faces.event.DropEvent;
 
 @ManagedBean
 public class HomeBean {
@@ -22,7 +22,7 @@ public class HomeBean {
 		data.add("Value 2");
 	}
 
-	public void objectDropped(DragDropEvent event) {
+	public void objectDropped(DropEvent event) {
 		selectedRows.add(event.getSourceId());
 	}
 	

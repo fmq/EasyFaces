@@ -64,8 +64,8 @@ public class StyleErrors extends JavaScriptComponentBase {
 			for (UIForm form : forms) {
 			
 				final List<String> invalidIds = new ArrayList<String>();
-				// Tried to loop throgh childern but it was almost imposible..
-				// Fortunatly.. visitTree does the trick
+				// Tried to loop through children but it was almost impossible..
+				// Fortunately.. visitTree does the trick
 				form.visitTree(VisitContext.createVisitContext(context, null, FORM_TREE_HINTS), new VisitCallback() {
 					public VisitResult visit(VisitContext context, UIComponent component) {
 						if (component instanceof UIInput) {
@@ -85,7 +85,7 @@ public class StyleErrors extends JavaScriptComponentBase {
 					theCall.append(StringUtils.listAsString(invalidIds, ",")).append("','");
 					String errorClass = getStyleClass() == null ? "error" : getStyleClass();
 					theCall.append(errorClass).append("')");
-					//Set the compoent that was created in instantiation
+					//Set the component that was created in instantiation
 					theComponent.setValue(theCall.toString());
 				}
 			}

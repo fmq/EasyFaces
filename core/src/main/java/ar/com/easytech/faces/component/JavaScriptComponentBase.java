@@ -59,26 +59,27 @@ public class JavaScriptComponentBase extends UIComponentBase {
         
         // This was reported by mmartin that when placed in non ajax request 
         // the call to the JS was made but before the DOM rendered.
-        if (event instanceof PostAddToViewEvent) {
-        	String target = (String) component.getAttributes().get("target");
-        
-	        // In most cases we should rendered ajax calls at the end of the BODY
-	        // so all DOM is present...so default to that unless specified 
-	        if (target == null )
-	        	target = "body";
-            context.getViewRoot().addComponentResource(context, component, target);
-            
+        /*if (event instanceof PostAddToViewEvent) {
+        	if (AjaxUtils.isAjaxRequest()) {
+	        	String target = (String) component.getAttributes().get("target");
+	        
+		        // In most cases we should rendered ajax calls at the end of the BODY
+		        // so all DOM is present...so default to that unless specified 
+		        if (target == null )
+		        	target = "body";
+	            context.getViewRoot().addComponentResource(context, component, target);
+        	}
         } else if (event instanceof PostRestoreStateEvent) {
-            PartialViewContext ajaxContext = context.getPartialViewContext();
-            if (ajaxContext.isAjaxRequest()) {
-                Collection<String> renderIds = ajaxContext.getRenderIds();
+            
+            if (AjaxUtils.isAjaxRequest()) {
+                Collection<String> renderIds = context.getPartialViewContext().getRenderIds();
                 String clientId = getClientId(context);
 
                 if (!renderIds.contains(clientId)) {
                         renderIds.add(clientId);
                 }
             }
-        }
+        }*/
 	}
 
 	@Override
