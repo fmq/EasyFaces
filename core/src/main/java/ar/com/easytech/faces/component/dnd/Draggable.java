@@ -54,7 +54,7 @@ public class Draggable extends UIComponentBase  {
 	public void setContainTo(String containTo) {
 		getStateHelper().put(PropertyKeys.containTo, containTo);
 	}
-
+	
 	protected enum PropertyKeys {
 		forVal("for"), draggableSelector, revert, containTo;
 		String c;
@@ -77,6 +77,7 @@ public class Draggable extends UIComponentBase  {
 		
 		String clientId = getClientId(facesContext);
 		UIComponent targetComponent = findComponent(getFor());
+		
         if(targetComponent == null)
             throw new FacesException("Cannot find component \"" + getFor());
 		

@@ -23,9 +23,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIData;
 import javax.faces.component.UINamingContainer;
@@ -33,6 +35,8 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.FacesEvent;
+
+import com.sun.faces.facelets.component.UIRepeat;
 
 import ar.com.easytech.faces.event.DropEvent;
 
@@ -103,12 +107,12 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.tolerance, tolerance);
 	}
 
-	public String getSource() {
-		return (String) getStateHelper().eval(PropertyKeys.source);
+	public String getDataSource() {
+		return (String) getStateHelper().eval(PropertyKeys.dataSource);
 	}
 
-	public void setSource(String source) {
-		getStateHelper().put(PropertyKeys.source, source);
+	public void setDataSource(String dataSource) {
+		getStateHelper().put(PropertyKeys.dataSource, dataSource);
 	}
 	
 	public String getTargetType() {
@@ -144,7 +148,7 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	}
 	
 	protected enum PropertyKeys {
-		forVal("for"), droppableSelector, activeClass, hoverClass, accept, tolerance, source, targetType
+		forVal("for"), droppableSelector, activeClass, hoverClass, accept, tolerance, dataSource, targetType
 			,onDrop, onDropOut, onDropOver;
 		String c;
 
@@ -171,24 +175,32 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 			AjaxBehaviorEvent behaviorEvent = (AjaxBehaviorEvent) event;
 
 			if (eventName.equals("drop")) {
-				String dragId = params.get("sourceId");
-				String dropId = params.get("targetId");
+				String sourceId = params.get("sourceId");
+				String targetId = params.get("targetId");
 				DropEvent dndEvent = null;
-				String datasourceId = getSource();
+				String dataSource = getDataSource();
 
-				if (datasourceId != null) {
-					UIData datasource = (UIData) findComponent(datasourceId);
-					String[] idTokens = dragId.split(String.valueOf(UINamingContainer.getSeparatorChar(context)));
-					int rowIndex = Integer.parseInt(idTokens[idTokens.length - 2]);
-					datasource.setRowIndex(rowIndex);
-					Object data = datasource.getRowData();
-					datasource.setRowIndex(-1);
-
-					dndEvent = new DropEvent(this,
-							behaviorEvent.getBehavior(), dragId, dropId, data);
+				if (dataSource != null) {
+					// If dataSource is not null we asume it either from an UIData component or a repeater
+					// So we first get the rowId of the sourceId (it should be something like :n:rowId:id)
+					String[] tokens = sourceId.split(String.valueOf(UINamingContainer.getSeparatorChar(context)));
+					int idx = Integer.parseInt(tokens[tokens.length - 2]);
+					UIComponent component = findComponent(dataSource);
+					Object data = null;
+					// Source should be a datasource
+					if (component instanceof UIData) {
+						UIData ds = (UIData) component;
+						ds.setRowIndex(idx);
+						data = ds.getRowData();
+						ds.setRowIndex(-1);
+					} else 
+						throw new FacesException("DataSource should be an instance of UIData");
+					
+					// Create the event with the data
+					dndEvent = new DropEvent(this,behaviorEvent.getBehavior(), sourceId, targetId, data);
 				} else {
 					dndEvent = new DropEvent(this,
-							behaviorEvent.getBehavior(), dragId, dropId);
+							behaviorEvent.getBehavior(), sourceId, targetId);
 				}
 
 				super.queueEvent(dndEvent);

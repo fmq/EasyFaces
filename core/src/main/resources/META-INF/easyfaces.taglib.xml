@@ -90,7 +90,7 @@
    <type>java.lang.String</type>
   </attribute>
   <attribute>
-   <name>source</name>
+   <name>dataSource</name>
    <type>java.lang.String</type>
   </attribute>
   <attribute>

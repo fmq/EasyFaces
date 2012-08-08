@@ -23,6 +23,11 @@
 			color: blue;
 			border: 1px solid blue;
 		}
+
+	.sortable-list    { padding:0; }
+	.sortable-list li  { padding:4px 8px; color:#000; cursor:move; list-style:none; width:100px; background:#ddd; margin:10px 0; border:1px solid #999; }
+	.message-box    { background:#fffea1; border:2px solid #fc0; padding:4px 8px; margin:0 0 14px 0; width:100px; }
+
 	</style>
   <h:outputStylesheet name="style.css" library="css" />
   <h:outputScript library="js" target="head" name="jquery-1.7.1.min.js" />
@@ -48,7 +53,7 @@
 
       <div id="container" class="container">
         <ui:repeat var="row" value="#{homeBean.data}" id="dnd" >
-          <h:panelGroup layout="block" id="draggable" styleClass="draggable">
+          <h:panelGroup layout="block" id="draggable" styleClass="draggable" data-value="#{row}" >
             <h:outputText value="#{row}" />
           </h:panelGroup>
           <et:draggable  for="draggable" draggableSelector=".draggable" containTo="parent" revert="invalid" />
@@ -67,8 +72,8 @@
 			<h:outputText value="#{data.name}" />
 		</h:column>
 	</h:dataTable>
-      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" targetType="list" source="selectedItems" >
-<f:ajax execute="@form" render="@form" listener="#{homeBean.objectDropped}" />
+      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" targetType="list" >
+				<f:ajax execute="@form" render="@form" listener="#{homeBean.objectDropped}" />
       </et:droppable>
          
     </h:form>

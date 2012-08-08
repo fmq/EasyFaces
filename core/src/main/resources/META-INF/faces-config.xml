@@ -28,5 +28,10 @@
 	        <renderer-type>javax.faces.Link</renderer-type>
 	        <renderer-class>ar.com.easytech.faces.renderer.CommandLinkRenderer</renderer-class>
 	    </renderer>
+	    <renderer>
+	        <component-family>javax.faces.Panel</component-family>
+	        <renderer-type>javax.faces.Group</renderer-type>
+	        <renderer-class>ar.com.easytech.faces.renderer.PanelGroupRenderer</renderer-class>
+	    </renderer>
 	</render-kit>
 </faces-config>

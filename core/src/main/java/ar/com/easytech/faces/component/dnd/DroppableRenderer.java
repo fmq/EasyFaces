@@ -80,22 +80,18 @@ public class DroppableRenderer extends Renderer {
 		if (droppable.getHoverClass() != null) writer.write(" hoverClass: '" + droppable.getHoverClass() + "',");
 		if (droppable.getAccept() != null) writer.write(" accept: '" + droppable.getAccept() + "',");
 		if (droppable.getTolerance() != null) writer.write(" tolerance: '" + droppable.getTolerance() + "',");
-		
-		
+			
 		//Ajax call on drop...This is allways created.
 		writer.write(" drop: function( event, ui ) { ");
 		writer.write(" $( this ).find( '.placeholder' ).remove(); ");
 		if (droppable.getTargetType() != null &&  droppable.getTargetType().equalsIgnoreCase("list")) 
 			writer.write("$( '<li></li>' ).text( ui.draggable.text() ).appendTo( this );");
-//		writer.write(" jsf.ajax.request(this,event,{execute: '" + droppable.getClientId() 
-//					+"', 'javax.faces.behavior.event': 'drop', 'javax.faces.source':'" + droppable.getClientId() 
-//					+ "' ,sourceId: ui.draggable.attr('id') , targetId: '"+ target +"'}); ");
 		
 		if (droppable.getOnDrop() != null) writer.write(droppable.getOnDrop());
 		writer.write(new AjaxRequest().addEvent(StringUtils.addSingleQuotes("drop"))
 									  .addExecute(StringUtils.addSingleQuotes(droppable.getClientId()))
 									  .addSource(StringUtils.addSingleQuotes(droppable.getClientId()))
-									  .addOther("sourceId", "ui.draggable.attr('id')")
+									  .addOther("sourceId", "EasyFaces.getDragSource(ui.draggable)")
 									  .addOther("targetId", StringUtils.addSingleQuotes(target)).getAjaxCall());
 		
 		writer.write(" } ");
@@ -112,7 +108,6 @@ public class DroppableRenderer extends Renderer {
 		}
 		
 		encodeClientBehaviors(context, droppable);
-		
 
 		writer.write("});");
 		writer.write("});");

@@ -1,9 +1,6 @@
 package ar.com.easytech.faces.renderer;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -15,9 +12,6 @@ import ar.com.easytech.utils.StringUtils;
 
 import com.sun.faces.renderkit.html_basic.TextRenderer;
 
-
-
-
 /**
  * @author FMQ
  *
@@ -25,7 +19,7 @@ import com.sun.faces.renderkit.html_basic.TextRenderer;
 @FacesRenderer(componentFamily = "javax.faces.Input",
 			   rendererType = "javax.faces.Text")
 public class InputRenderer extends TextRenderer {
-
+	
 	private final String[] attrs = {"autocomplete", "autofocus", "list", "pattern", "placeholder"};
 	
 	@Override

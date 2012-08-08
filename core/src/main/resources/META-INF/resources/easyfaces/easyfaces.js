@@ -78,6 +78,22 @@ EasyFaces = {
 
 	},
 	
+	getDragSource : function(source) {
+		//Get 
+		if (typeof source === 'undefined' || source === null) {
+            throw new Error("easyFaces.ajax: source not set");
+        }
+		
+		// Get the data-value attribute if it exists
+		var dataValue = $(source).attr("data-value");
+		// Check if not defined.. return the id..
+		if (typeof dataValue == 'undefined' || dataValue == null) {
+			return $(source).attr('id');
+		} 
+		
+		return dataValue;
+	},
+	
 	ajax : function(source, event, options) {
 		//Sanity checks..
 		if (typeof source === 'undefined' || source === null) {
