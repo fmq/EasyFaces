@@ -29,16 +29,15 @@ public class DropListener implements BehaviorListener
 {
     private static final Logger logger = Logger.getLogger(DropListener.class.getName());
 
-    private MethodExpression _expr;
+    private MethodExpression expr;
     
     public DropListener(MethodExpression expr)
     {
-        _expr = expr;
+        this.expr = expr;
     }
 
     public void processDropEvent(DropEvent event) throws AbortProcessingException
     {
-        _expr.invoke(FacesContext.getCurrentInstance().getELContext(),
-                new Object[] { event });
+        expr.invoke(FacesContext.getCurrentInstance().getELContext(), new Object[] { event });
     }
 }

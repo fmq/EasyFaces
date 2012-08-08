@@ -63,7 +63,7 @@
   <component>
    <component-type>ar.com.easyfaces.Droppable</component-type>
    <renderer-type>ar.com.easyfaces.DroppableRenderer</renderer-type>
-   <handler-class/>
+   <handler-class>ar.com.easytech.faces.component.dnd.DroppableHandler</handler-class>
   </component>
   <attribute>
    <name>for</name>
@@ -108,6 +108,10 @@
    <description>Identifies a backing bean property (of type UIComponent or appropriate subclass) to bind to this component instance. This value must be an EL expression.</description>
    <name>binding</name>
    <type>javax.faces.component.UIComponent</type>
+  </attribute>
+  <attribute>
+   <name>targetType</name>
+   <type>java.lang.String</type>
   </attribute>
  </tag>
  <tag>

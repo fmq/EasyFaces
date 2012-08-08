@@ -24,7 +24,7 @@
     <parent>
         <groupId>ar.com.easytech</groupId>
         <artifactId>easyFaces-project</artifactId>
-        <version>1.0</version>
+				<version>1.1</version>
     </parent>
     
     <modelVersion>4.0.0</modelVersion>
@@ -43,7 +43,6 @@
             </resource>
         </resources>
     </build>
-
     <!-- Project dependencies -->
     <dependencies>
         <dependency>
@@ -70,7 +69,11 @@
             <version>1.1.1</version>
             <scope>compile</scope>
         </dependency>
-
+		<dependency>  
+		    <groupId>org.primefaces</groupId>  
+		    <artifactId>primefaces</artifactId>  
+		    <version>3.3.1</version>  
+		</dependency> 
     </dependencies>
 
     

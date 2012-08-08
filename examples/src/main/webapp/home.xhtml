@@ -5,6 +5,7 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:p="http://primefaces.org/ui"  
   xmlns:et="http://ar.com.easytech/easyfaces">
 
 <h:head>
@@ -64,9 +65,31 @@
 			<h:outputText value="#{data.name}" />
 		</h:column>
 	</h:dataTable>
-      <!--et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" /-->
+      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" >
+      	<f:ajax event="drop" execute="@form" render="@form" />
+      </et:droppable>
          
     </h:form>
+
+	<h:form id="primeFrm">
+		
+		<ui:repeat var="row" value="#{homeBean.data}" id="primeDdnd" >
+          <h:panelGroup layout="block" id="primeDraggable" styleClass="draggable">
+            <h:outputText value="#{row}" />
+          </h:panelGroup>
+          
+        </ui:repeat>
+		
+		<p:draggable for="primeDraggable" revert="true" /> 
+		
+		<h:panelGroup layout="block" id="primeDroppable" styleClass="droppable">
+          <p>Drop Here!</p>
+        </h:panelGroup>
+        
+        <p:droppable for="primeDroppable" tolerance="touch" activeStyleClass="droppable" >  
+	        <p:ajax listener="#{homeBean.onCarDrop}" update="@form" />  
+	    </p:droppable>  
+	</h:form>
             
   </div>  
 </h:body>

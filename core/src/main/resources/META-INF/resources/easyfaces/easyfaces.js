@@ -76,5 +76,40 @@ EasyFaces = {
 			}
 		}
 
+	},
+	
+	ajax : function(source, event, options) {
+		//Sanity checks..
+		if (typeof source === 'undefined' || source === null) {
+            throw new Error("easyFaces.ajax: source not set");
+        }
+		
+		if (typeof(options) === 'undefined' || options === null) {
+            options = {};
+        }
+		
+		var params = {};
+		// We need to transform some of the options we are using for 
+		// simplicity
+		// If we have an event in the options add to faces queue as the behaviour event
+		if (options.event) {
+			params['javax.faces.behavior.event'] = options.event;
+		}
+		
+		if (options.source)
+			params['javax.faces.source'] = options.source;
+		
+		//now.. erase used options and simply process the rest..
+		delete options.event;
+		delete options.source;
+		
+		for (var option in options) {
+            if (options.hasOwnProperty(option)) {
+                params[option] = options[option];
+            }
+        }
+		// Make call to java std library
+		jsf.ajax.request(source,event,params);
+		
 	}
 }

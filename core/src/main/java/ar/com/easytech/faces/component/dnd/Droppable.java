@@ -39,6 +39,7 @@ import ar.com.easytech.faces.event.DropEvent;
 @FacesComponent(Droppable.COMPONENT_TYPE)
 @ResourceDependencies({
 	@ResourceDependency(library="javax.faces", name="jsf.js"),
+	@ResourceDependency(library="easyfaces", name="easyfaces.js")
 })
 public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	
@@ -48,13 +49,12 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 
 	public final static String DEFAULT_EVENT = "drop";
 	
-	private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(DEFAULT_EVENT));
+	private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(DEFAULT_EVENT,"dropout","dropover"));
 
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
 
-	// Property: for
 	public String getFor() {
 		return (String) getStateHelper().eval(PropertyKeys.forVal);
 	}
@@ -63,7 +63,6 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.forVal, forParam);
 	}
 
-	// Property: droppableSelector
 	public String getDroppableSelector() {
 		return (String) getStateHelper().eval(PropertyKeys.droppableSelector);
 	}
@@ -72,7 +71,6 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.droppableSelector, droppableSelector);
 	}
 
-	// Property: activeClass
 	public String getActiveClass() {
 		return (String) getStateHelper().eval(PropertyKeys.activeClass);
 	}
@@ -81,7 +79,6 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.activeClass, activeClass);
 	}
 
-	// Property: hoverClass
 	public String getHoverClass() {
 		return (String) getStateHelper().eval(PropertyKeys.hoverClass);
 	}
@@ -90,7 +87,6 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.hoverClass, hoverClass);
 	}
 
-	// Property: accept
 	public String getAccept() {
 		return (String) getStateHelper().eval(PropertyKeys.accept);
 	}
@@ -99,7 +95,6 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.accept, accept);
 	}
 
-	// Property: tolerance
 	public String getTolerance() {
 		return (String) getStateHelper().eval(PropertyKeys.tolerance);
 	}
@@ -108,7 +103,6 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.tolerance, tolerance);
 	}
 
-	// Property: source
 	public String getSource() {
 		return (String) getStateHelper().eval(PropertyKeys.source);
 	}
@@ -116,9 +110,42 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	public void setSource(String source) {
 		getStateHelper().put(PropertyKeys.source, source);
 	}
+	
+	public String getTargetType() {
+		return (String) getStateHelper().eval(PropertyKeys.targetType);
+	}
 
+	public void setTargetType(String targetType) {
+		getStateHelper().put(PropertyKeys.targetType, targetType);
+	}
+
+	public String getOnDrop() {
+		return (String) getStateHelper().eval(PropertyKeys.onDrop);
+	}
+
+	public void setOnDrop(String onDrop) {
+		getStateHelper().put(PropertyKeys.onDrop, onDrop);
+	}
+
+	public String getOnDropOut() {
+		return (String) getStateHelper().eval(PropertyKeys.onDropOut);
+	}
+
+	public void setOnDropOut(String onDropOut) {
+		getStateHelper().put(PropertyKeys.onDropOut, onDropOut);
+	}
+	
+	public String getOnDropOver() {
+		return (String) getStateHelper().eval(PropertyKeys.onDropOver);
+	}
+
+	public void setOnDropOver(String onDropOver) {
+		getStateHelper().put(PropertyKeys.onDropOver, onDropOver);
+	}
+	
 	protected enum PropertyKeys {
-		forVal("for"), droppableSelector, activeClass, hoverClass, accept, tolerance, source;
+		forVal("for"), droppableSelector, activeClass, hoverClass, accept, tolerance, source, targetType
+			,onDrop, onDropOut, onDropOver;
 		String c;
 
 		PropertyKeys() {
@@ -138,8 +165,7 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	public void queueEvent(FacesEvent event) {
 		FacesContext context = FacesContext.getCurrentInstance();
 
-			Map<String, String> params = context.getExternalContext()
-					.getRequestParameterMap();
+			Map<String, String> params = context.getExternalContext().getRequestParameterMap();
 			String eventName = params.get("javax.faces.behavior.event");
 
 			AjaxBehaviorEvent behaviorEvent = (AjaxBehaviorEvent) event;
@@ -152,11 +178,8 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 
 				if (datasourceId != null) {
 					UIData datasource = (UIData) findComponent(datasourceId);
-					String[] idTokens = dragId.split(String
-							.valueOf(UINamingContainer
-									.getSeparatorChar(context)));
-					int rowIndex = Integer
-							.parseInt(idTokens[idTokens.length - 2]);
+					String[] idTokens = dragId.split(String.valueOf(UINamingContainer.getSeparatorChar(context)));
+					int rowIndex = Integer.parseInt(idTokens[idTokens.length - 2]);
 					datasource.setRowIndex(rowIndex);
 					Object data = datasource.getRowData();
 					datasource.setRowIndex(-1);
@@ -181,8 +204,5 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	public String getDefaultEventName() {
 		return DEFAULT_EVENT;
 	}
-
-	
-
 
 }

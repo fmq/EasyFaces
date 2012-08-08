@@ -24,4 +24,8 @@ public class StringUtils {
 		return string.toString().replace(delimiter+"$", "");
 		
 	}
+	
+	public static String addSingleQuotes(String value) {
+		return "'" + value + "'";
+	}
 }
