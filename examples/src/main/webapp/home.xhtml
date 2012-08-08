@@ -56,7 +56,9 @@
 
 
         <h:panelGroup layout="block" id="droppable" styleClass="droppable">
-          <p>Drop Here!</p>
+					<ol>
+          	<li class="placeholder" >Drop Here!</li>
+					</ol>
         </h:panelGroup>
       </div>
 
@@ -65,8 +67,8 @@
 			<h:outputText value="#{data.name}" />
 		</h:column>
 	</h:dataTable>
-      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" >
-      	<f:ajax event="drop" execute="@form" render="@form" />
+      <et:droppable for="droppable" droppableSelector=".droppable" hoverClass="ui-state-hover" activeClass="ui-state-active" targetType="list" source="selectedItems" >
+<f:ajax execute="@form" render="@form" listener="#{homeBean.objectDropped}" />
       </et:droppable>
          
     </h:form>
@@ -77,18 +79,16 @@
           <h:panelGroup layout="block" id="primeDraggable" styleClass="draggable">
             <h:outputText value="#{row}" />
           </h:panelGroup>
-          
+					<p:draggable for="primeDraggable" revert="true" /> 
         </ui:repeat>
 		
-		<p:draggable for="primeDraggable" revert="true" /> 
 		
 		<h:panelGroup layout="block" id="primeDroppable" styleClass="droppable">
           <p>Drop Here!</p>
         </h:panelGroup>
         
         <p:droppable for="primeDroppable" tolerance="touch" activeStyleClass="droppable" >  
-	        <p:ajax listener="#{homeBean.onCarDrop}" update="@form" />  
-	    </p:droppable>  
+	    	</p:droppable>  
 	</h:form>
             
   </div>  
