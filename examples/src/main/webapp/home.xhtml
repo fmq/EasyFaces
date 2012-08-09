@@ -53,12 +53,13 @@
 
       <div id="container" class="container">
         <ui:repeat var="row" value="#{homeBean.data}" id="dnd" >
-          <h:panelGroup layout="block" id="draggable" styleClass="draggable" data-value="#{row}" >
+          <et:dataPanel id="draggable" styleClass="draggable" value="#{row}" >
             <h:outputText value="#{row}" />
-          </h:panelGroup>
+          </et:dataPanel>
           <et:draggable  for="draggable" draggableSelector=".draggable" containTo="parent" revert="invalid" />
         </ui:repeat>
 
+		
 
         <h:panelGroup layout="block" id="droppable" styleClass="droppable">
 					<ol>

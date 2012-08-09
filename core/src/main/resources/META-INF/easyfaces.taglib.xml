@@ -154,4 +154,26 @@ the forms of the view will be scanned for validation errors.</description>
    <type>java.lang.String</type>
   </attribute>
  </tag>
+ <tag>
+  <tag-name>dataPanel</tag-name>
+  <component>
+   <component-type>ar.com.easyfaces.DataPanel</component-type>
+   <renderer-type>ar.com.easyfaces.DataPanelRenderer</renderer-type>
+   <handler-class/>
+  </component>
+  <attribute>
+   <name>style</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>styleClass</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>value</name>
+  </attribute>
+  <attribute>
+   <name>converter</name>
+  </attribute>
+ </tag>
 </facelet-taglib>
