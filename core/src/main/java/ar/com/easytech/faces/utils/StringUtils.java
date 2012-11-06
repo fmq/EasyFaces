@@ -1,4 +1,4 @@
-package ar.com.easytech.utils;
+package ar.com.easytech.faces.utils;
 
 import java.util.List;
 

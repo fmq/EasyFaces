@@ -48,13 +48,18 @@ import ar.com.easytech.faces.event.DropEvent;
 public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	
 	public static final String COMPONENT_TYPE = "ar.com.easyfaces.Droppable";
-	public static final String DEFAULT_RENDERER_TYPE = "ar.com.easyfaces.DroppableRenderer";
-	public static final String COMPONENT_FAMILY = "javax.faces.Output";
+	public static final String RENDERER_TYPE = "ar.com.easyfaces.DroppableRenderer";
+	public static final String COMPONENT_FAMILY = "ar.com.easyfaces.Output";
 
 	public final static String DEFAULT_EVENT = "drop";
 	
-	private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(DEFAULT_EVENT,"dropout","dropover"));
+	private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(DEFAULT_EVENT,"dropout","dropover","update"));
 
+	public Droppable() {
+		setRendererType(RENDERER_TYPE);
+	}
+
+	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
 	}
@@ -146,10 +151,18 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 	public void setOnDropOver(String onDropOver) {
 		getStateHelper().put(PropertyKeys.onDropOver, onDropOver);
 	}
+
+	public String getSortable() {
+		return (String) getStateHelper().eval(PropertyKeys.sortable);
+	}
+
+	public void setSortable(String sortable) {
+		getStateHelper().put(PropertyKeys.sortable, sortable);
+	}
 	
 	protected enum PropertyKeys {
 		forVal("for"), droppableSelector, activeClass, hoverClass, accept, tolerance, dataSource, targetType
-			,onDrop, onDropOut, onDropOver;
+			,onDrop, onDropOut, onDropOver, sortable;
 		String c;
 
 		PropertyKeys() {
@@ -199,8 +212,7 @@ public class Droppable extends UIComponentBase implements ClientBehaviorHolder {
 					// Create the event with the data
 					dndEvent = new DropEvent(this,behaviorEvent.getBehavior(), sourceId, targetId, data);
 				} else {
-					dndEvent = new DropEvent(this,
-							behaviorEvent.getBehavior(), sourceId, targetId);
+					dndEvent = new DropEvent(this,behaviorEvent.getBehavior(), sourceId, targetId);
 				}
 
 				super.queueEvent(dndEvent);

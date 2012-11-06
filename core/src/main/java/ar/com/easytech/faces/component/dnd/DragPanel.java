@@ -1,15 +1,15 @@
-package ar.com.easytech.faces.component.data;
+package ar.com.easytech.faces.component.dnd;
 
 import javax.faces.component.FacesComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
-@FacesComponent(DataPanel.COMPONENT_TYPE)
-public class DataPanel extends UIComponentBase implements ValueHolder {
+@FacesComponent(DragPanel.COMPONENT_TYPE)
+public class DragPanel extends UIComponentBase implements ValueHolder {
 
-	public static final String COMPONENT_TYPE = "ar.com.easyfaces.DataPanel";
-	public static final String DEFAULT_RENDERER_TYPE = "ar.com.easyfaces.DataPanelRenderer";
+	public static final String COMPONENT_TYPE = "ar.com.easyfaces.DragPanel";
+	public static final String DEFAULT_RENDERER_TYPE = "ar.com.easyfaces.DragPanelRenderer";
 	public static final String COMPONENT_FAMILY = "javax.faces.Output";
 
 	private Converter converter;

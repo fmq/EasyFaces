@@ -1,4 +1,4 @@
-package ar.com.easytech.faces.component.data;
+package ar.com.easytech.faces.component.dnd;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -10,8 +10,8 @@ import javax.faces.render.FacesRenderer;
 
 import com.sun.faces.renderkit.html_basic.HtmlBasicRenderer;
 
-@FacesRenderer(componentFamily = "javax.faces.Output", rendererType = "ar.com.easyfaces.DataPanelRenderer")
-public class DataPanelRenderer extends HtmlBasicRenderer {
+@FacesRenderer(componentFamily = "javax.faces.Output", rendererType = "ar.com.easyfaces.DragPanelRenderer")
+public class DragPanelRenderer extends HtmlBasicRenderer {
 
 	@Override
 	public void encodeBegin(FacesContext context, UIComponent component)

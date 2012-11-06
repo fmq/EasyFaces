@@ -20,8 +20,8 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import ar.com.easytech.faces.component.JavaScriptComponentBase;
-import ar.com.easytech.utils.ComponentUtils;
-import ar.com.easytech.utils.StringUtils;
+import ar.com.easytech.faces.utils.ComponentUtils;
+import ar.com.easytech.faces.utils.StringUtils;
 
 @FacesComponent(StyleErrors.COMPONENT_TYPE)
 @ResourceDependencies({

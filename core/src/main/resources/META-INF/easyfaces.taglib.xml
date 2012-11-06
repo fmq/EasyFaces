@@ -155,10 +155,10 @@ the forms of the view will be scanned for validation errors.</description>
   </attribute>
  </tag>
  <tag>
-  <tag-name>dataPanel</tag-name>
+  <tag-name>dragPanel</tag-name>
   <component>
-   <component-type>ar.com.easyfaces.DataPanel</component-type>
-   <renderer-type>ar.com.easyfaces.DataPanelRenderer</renderer-type>
+   <component-type>ar.com.easyfaces.DragPanel</component-type>
+   <renderer-type>ar.com.easyfaces.DragPanelRenderer</renderer-type>
    <handler-class/>
   </component>
   <attribute>
@@ -176,4 +176,42 @@ the forms of the view will be scanned for validation errors.</description>
    <name>converter</name>
   </attribute>
  </tag>
+ <tag>
+  <tag-name>dataList</tag-name>
+  <component>
+   <component-type>ar.com.easyfaces.DataList</component-type>
+   <renderer-type>ar.com.easyfaces.DataListRenderer</renderer-type>
+   <handler-class/>
+  </component>
+  <attribute>
+   <description>Add's manual sorting support to the list via javascript. Values are true / false</description>
+   <name>sortable</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>hoverClass</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <description>Determines if it's an Order List (OL) or Unordered list (UL)</description>
+   <name>type</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <description>Style class for indiviaul &amp;lt:li&amp;gt: items</description>
+   <name>itemStyleClass</name>
+  </attribute>
+  <attribute>
+   <name>style</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>styleClass</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>itemValue</name>
+   <type>java.lang.Object</type>
+  </attribute>  
+ </tag> 
 </facelet-taglib>

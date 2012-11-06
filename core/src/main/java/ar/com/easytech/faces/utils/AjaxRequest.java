@@ -1,4 +1,4 @@
-package ar.com.easytech.utils;
+package ar.com.easytech.faces.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,6 +7,8 @@ public class AjaxRequest {
 	
 	private StringBuilder dCall;
 	private Map<String, String> params;
+	
+	private static final String NEW_LINE = "\r\n";
 	
 	public AjaxRequest() {
 		
@@ -46,17 +48,19 @@ public class AjaxRequest {
 	public String getAjaxCall() {
 		dCall = new StringBuilder();
 		dCall.append("EasyFaces.ajax(this, event, {");
+		dCall.append(NEW_LINE);
 		boolean first = true;
 		for (String key : params.keySet()) {
 			if (!first) {
 				dCall.append(",");
+				dCall.append(NEW_LINE);
 			}
 			first = false;
 			dCall.append(key)
 			     .append(":").append(params.get(key));
 		}
+		dCall.append(NEW_LINE);
 		dCall.append("});");
-		
 		return dCall.toString();
 	}
 }

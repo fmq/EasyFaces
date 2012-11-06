@@ -52,6 +52,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>ar.com.easytech</groupId>
+            <artifactId>easyFaces-dashboard</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>
 		</dependency>
@@ -73,7 +79,12 @@
 		    <groupId>org.primefaces</groupId>  
 		    <artifactId>primefaces</artifactId>  
 		    <version>3.3.1</version>  
-		</dependency> 
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.10</version>
+		</dependency>
     </dependencies>
 
     

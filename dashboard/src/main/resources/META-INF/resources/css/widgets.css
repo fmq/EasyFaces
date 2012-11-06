@@ -1,0 +1,81 @@
+@CHARSET "UTF-8";
+
+div.graph {
+	margin-left: 25px;
+	margin-top: 25px;
+	width: 300px;
+	height: 300px;
+	float: left;
+	border: 1px dashed gainsboro;
+}
+
+.column {
+	display: inline-block;
+	float: left;
+	height: auto;
+	min-height: 50px;
+	text-align: center;
+}
+
+.cols-3 {
+	width: 33%;
+}
+
+.cols-2 {
+	width: 50%;
+}
+
+.cols-1 {
+	width: 100%;
+}
+
+.widgetbox {
+	margin: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 95%;
+	min-height: 100px;
+	border: 1px solid Black;
+}
+
+.widget-header {
+	height: 25px;
+	cursor: move;
+	text-align: left;
+	padding-left: 3px;
+	color: White;
+	font-weight: bold;
+	background-color: Gray;
+}
+
+.widget-body {
+	min-height: 100px;
+	height: 350px;
+	background: #F0F0F0;
+}
+
+/* Placeholder while dragging the widget using jQuery*/
+.ui-sortable-placeholder {
+	border: 1px dashed black;
+	visibility: visible !important;
+	height: 50px !important;
+}
+
+.ui-sortable-placeholder * {
+	visibility: hidden;
+}
+
+.footer {
+	clear: both;
+	display: block;
+	position: absolute;
+	color: Green;
+	bottom: 5px;
+	right: 5px;
+}
+
+.pie .legend {
+	margin-left: 300px;
+	position: relative;
+	width: 200px;
+}

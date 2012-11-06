@@ -19,15 +19,15 @@ import javax.faces.event.ListenersFor;
 import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PostRestoreStateEvent;
 
-import ar.com.easytech.utils.AjaxUtils;
-import ar.com.easytech.utils.ScriptUtils;
+import ar.com.easytech.faces.utils.AjaxUtils;
+import ar.com.easytech.faces.utils.ScriptUtils;
 
 @FacesComponent(JavaScriptComponentBase.COMPONENT_TYPE)
 @ResourceDependencies({
-        @ResourceDependency(library="javax.faces", name="jsf.js", target="head"), 
-        @ResourceDependency(library="easyfaces", name="easyfaces.js", target="head")
-        //ResourceDependency(library="jquery", name="jquery.js", target="head"),
-        //ResourceDependency(library="jquery", name="jqueryui.js", target="head")
+	@ResourceDependency(library="js", name="jquery.js", target="head"),
+	@ResourceDependency(library = "js", name = "jquery-ui.js", target = "head"),
+    @ResourceDependency(library="javax.faces", name="jsf.js", target="head"), 
+    @ResourceDependency(library="easyfaces", name="easyfaces.js", target="head")
 })
 @ListenersFor ({
 	@ListenerFor(systemEventClass=PostAddToViewEvent.class),

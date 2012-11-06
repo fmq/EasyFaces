@@ -8,7 +8,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.context.ResponseWriterWrapper;
 import javax.faces.render.FacesRenderer;
 
-import ar.com.easytech.utils.StringUtils;
+import ar.com.easytech.faces.utils.StringUtils;
 
 import com.sun.faces.renderkit.html_basic.TextRenderer;
 

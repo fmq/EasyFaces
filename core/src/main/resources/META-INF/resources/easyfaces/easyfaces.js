@@ -115,17 +115,49 @@ EasyFaces = {
 		if (options.source)
 			params['javax.faces.source'] = options.source;
 		
+		if (options.execute)
+			params['execute'] = options.execute;
+		else
+			params['execute'] = '@form';
+		
+		if (options.render)
+			params['render'] = options.render;
+		else
+			params['render'] = '@form';
+		
 		//now.. erase used options and simply process the rest..
 		delete options.event;
 		delete options.source;
+		delete options.render;
+		delete options.execute;
 		
 		for (var option in options) {
             if (options.hasOwnProperty(option)) {
                 params[option] = options[option];
             }
         }
-		// Make call to java std library
+		// Make call to jsf std ajax library
 		jsf.ajax.request(source,event,params);
+		return false;
+	},
+	
+	sortable : function(source) {
+			
+		if (typeof source === 'undefined' || source === null) {
+            throw new Error("easyFaces.ajax: source not set");
+        }
 		
+		$(EasyFaces.escapeId(source)).sortable({
+	        update: function (event, ui) {
+	            EasyFaces.ajax(this, event, {
+	                execute: source,
+	                dropedPosition: ui.item.index(),
+	                source: source,
+	                event: 'update',
+	                sourceId: ui.item.attr('id')
+	            });
+	        }
+	    });
 	}
 }
+
