@@ -24,7 +24,7 @@ public class DashboardManager implements Serializable {
 	private static final long serialVersionUID = 4949225441948805291L;
 	private final static Logger logger = Logger.getLogger(DashboardManager.class.toString()); 
 
-	@EJB DashboardBuilderBean builder; 
+	@EJB DashboardBuilderTemplate builder; 
 	
 	
 	

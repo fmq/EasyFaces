@@ -63,7 +63,7 @@ public class BaseWidgetRenderer extends BaseRenderer {
 		writer.writeAttribute("class", sClass, "class");
 		if (component.getAttributes().get("height") != null) {
 	        // Add height
-			int height = (Integer)component.getAttributes().get("height") + 50;
+			int height = ((Integer)component.getAttributes().get("height")) + 50;
 			writer.writeAttribute("style", "height: " + height + "px;", null);
 		}
 	
