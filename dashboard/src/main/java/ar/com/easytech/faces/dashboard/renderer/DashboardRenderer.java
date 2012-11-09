@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.model.DataModel;
 import javax.faces.render.FacesRenderer;
 
 import ar.com.easytech.faces.dashboard.component.Dashboard;
@@ -22,7 +20,6 @@ import ar.com.easytech.faces.dashboard.model.DashboardColumnLayout;
 import ar.com.easytech.faces.dashboard.model.DashboardDefinition;
 import ar.com.easytech.faces.dashboard.model.Widget;
 import ar.com.easytech.faces.dashboard.model.WidgetInstance;
-import ar.com.easytech.faces.dashboard.model.WidgetType;
 import ar.com.easytech.faces.dashboard.service.DashboardBuilderBean;
 import ar.com.easytech.faces.dashboard.utils.Producers;
 import ar.com.easytech.faces.renderer.BaseRenderer;

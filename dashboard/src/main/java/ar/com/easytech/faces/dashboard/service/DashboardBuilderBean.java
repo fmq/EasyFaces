@@ -18,14 +18,12 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 
-import ar.com.easytech.faces.dashboard.component.widgets.Chart;
 import ar.com.easytech.faces.dashboard.model.ChartSeries;
 import ar.com.easytech.faces.dashboard.model.DashboardColumnLayout;
 import ar.com.easytech.faces.dashboard.model.DashboardDefinition;
 import ar.com.easytech.faces.dashboard.model.DashboardWidgetInstance;
 import ar.com.easytech.faces.dashboard.model.Widget;
 import ar.com.easytech.faces.dashboard.model.WidgetInstance;
-import ar.com.easytech.faces.dashboard.model.WidgetType;
 import ar.com.easytech.faces.dashboard.utils.ChartManager;
 
 @Stateless
@@ -33,7 +31,8 @@ import ar.com.easytech.faces.dashboard.utils.ChartManager;
 @Named
 public class DashboardBuilderBean {
 	
-	@PersistenceContext private EntityManager em;
+	@PersistenceContext(name="dashboard")
+	private EntityManager em;
 	
 	public DashboardDefinition getDashboardForUser(String userId) {
 		

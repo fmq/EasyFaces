@@ -46,7 +46,7 @@ public class HomeBean {
 	}
 	private void generateChartData() {
 
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<Object, Object> data = new HashMap<Object, Object>();
 		data.put("Uno", 200);
 		data.put("Dos", 430);
 		data.put("tres", 100);

@@ -212,6 +212,36 @@ the forms of the view will be scanned for validation errors.</description>
   <attribute>
    <name>itemValue</name>
    <type>java.lang.Object</type>
-  </attribute>  
- </tag> 
+  </attribute>
+ </tag>
+ <tag>
+  <tag-name>autocomplete</tag-name>
+  <component>
+   <component-type>ar.com.easyfaces.Autocomplete</component-type>
+   <renderer-type>ar.com.easyfaces.AutocompleteRenderer</renderer-type>
+   <handler-class/>
+  </component>
+  <attribute>
+   <name>style</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <name>styleClass</name>
+   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+   <description>Number of characters before looking</description>
+   <name>minLength</name>
+   <type>java.lang.Integer</type>
+  </attribute>
+  <attribute>
+   <description>Time in milisecs to wait before searching</description>
+   <name>delay</name>
+   <type>java.lang.Integer</type>
+  </attribute>
+  <attribute>
+   <name>dataSource</name>
+   <type>java.lang.Object</type>
+  </attribute>
+ </tag>
 </facelet-taglib>

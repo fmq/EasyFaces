@@ -77,7 +77,7 @@ public class DataListRenderer extends BaseRenderer {
 					  .getAjaxCall());
         	writer.write(" } ");
         	writer.write("});");
-        	writer.write("});return false;");
+        	writer.write("});");
         	ScriptUtils.endScript(writer);
         	
         }
