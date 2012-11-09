@@ -14,6 +14,7 @@ public class EasyfacesBean {
 	private final static Logger logger = Logger.getLogger(EasyfacesBean.class.toString());
 
 	private List<String> data = new ArrayList<String>();
+	private String selectedValue;
 	
 	@PostConstruct
 	public void init() {
@@ -21,7 +22,6 @@ public class EasyfacesBean {
 		data.add("Value 1");
 		data.add("Value 2");
 	}
-	
 	
 	public List<String> getData() {
 		return data;
@@ -34,6 +34,27 @@ public class EasyfacesBean {
 	public void listChanged(AjaxBehaviorEvent event) {
 		logger.info("Event: " + event.getBehavior());
 		Object obj = event;
+	}
+
+
+	public List<String> getDataFromSource() {
+		
+		List<String> tmpData = new ArrayList<String>();
+		tmpData.add("XXA_TABLE_A");
+		tmpData.add("XXA_TABLE_B");
+		tmpData.add("XXA_TABLE_C");
+		
+		return tmpData;
+	
+	}
+	
+	public String getSelectedValue() {
+		return selectedValue;
+	}
+
+
+	public void setSelectedValue(String selectedValue) {
+		this.selectedValue = selectedValue;
 	}
 
 	

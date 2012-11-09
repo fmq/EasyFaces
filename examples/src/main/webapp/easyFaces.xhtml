@@ -15,11 +15,9 @@
 
 	<h:outputStylesheet name="style.css" library="css" />
 	<div id="container">
-		<h:form>
-			<et:autocomplete id="autoc" minLength="3" delay="500" value="" />  
-	
-			<et:dataList value="#{easyfacesBean.data}" itemValue="foo" var="xx"
-				sortable="true">
+		<h:form id="frm" >
+			<et:autocomplete id="autoc" minLength="3" delay="500" value="#{easyfacesBean.selectedValue}" dataSource="#{easyfacesBean.getDataFromSource}" />  
+			<et:dataList value="#{easyfacesBean.data}" itemValue="foo" var="xx" sortable="true">
 				<f:ajax execute="@form" render="@form"
 					listener="#{easyfacesBean.listChanged}" />
 				<h:outputText value="#{xx}" />

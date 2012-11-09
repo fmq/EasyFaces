@@ -1,9 +1,6 @@
 package ar.com.easytech.faces.component.autocomplete;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-
+import javax.el.MethodExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
@@ -67,11 +64,11 @@ public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder 
 		getStateHelper().put(PropertyKeys.position, position);
 	}
 
-	public Object getDataSource() {
-		return (Object) getStateHelper().eval(PropertyKeys.dataSource);
+	public MethodExpression getDataSource() {
+		return (MethodExpression) getStateHelper().eval(PropertyKeys.dataSource);
 	}
 
-	public void setDataSource(Object dataSource) {
+	public void setDataSource(MethodExpression dataSource) {
 		getStateHelper().put(PropertyKeys.dataSource, dataSource);
 	}
 	

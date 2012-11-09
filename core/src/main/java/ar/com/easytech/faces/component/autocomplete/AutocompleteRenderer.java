@@ -1,8 +1,13 @@
 package ar.com.easytech.faces.component.autocomplete;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.el.MethodExpression;
+import javax.el.MethodNotFoundException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -17,6 +22,8 @@ import ar.com.easytech.faces.utils.StringUtils;
 @FacesRenderer(componentFamily = "ar.com.easyfaces.Input", rendererType = "ar.com.easyfaces.AutocompleteRenderer")
 public class AutocompleteRenderer extends BaseRenderer {
 
+	private static final Logger logger = Logger.getLogger(AutocompleteRenderer.class.getSimpleName());
+	
 	@Override
 	public void decode(FacesContext context, UIComponent component) {
 
@@ -33,10 +40,8 @@ public class AutocompleteRenderer extends BaseRenderer {
 		String data = params.get(autocomplete.getClientId());
 		if (source != null && source.equals(autocomplete.getClientId()) && data != null) {
 			// We have to set the data to the component
-			autocomplete.setDataSource(data);
-			
+			List<Object> dData = getData(context, autocomplete, data);
 		}
-		
 	}
 
 	@Override
@@ -54,11 +59,6 @@ public class AutocompleteRenderer extends BaseRenderer {
 		writer.writeAttribute("class", sClass,  null);
 		writer.endElement("input");
 		
-		writer.startElement("input", component);
-		writer.writeAttribute("id", autocomplete.getClientId() + "_data",null);
-		writer.writeAttribute("value", "['XXA_TAB1','XXA_TAB2','XXA_TAB3']", null);
-		writer.endElement("input");
-		
 		// Javascript 
 		ScriptUtils.startScript(writer, autocomplete.getClientId());
 		writer.write("var tableNames = ['XXA_TAB1','XXA_TAB2','XXA_TAB3'];");
@@ -66,18 +66,16 @@ public class AutocompleteRenderer extends BaseRenderer {
     	AjaxUtils.newLine(writer);
     	writer.write("		$(EasyFaces.escapeId('" + autocomplete.getClientId() + "')).autocomplete({");
     	AjaxUtils.newLine(writer);
-    	writer.write("			source: function( request, response ) { var data = jQuery.parseJSON(document.getElementById('" +  autocomplete.getClientId() + "_data').value); response(data) },");
+    	writer.write("			source: tableNames,");
     	AjaxUtils.newLine(writer);
     	if (autocomplete.getMinLength() != null) {
 	    	writer.write("			minLength: " + autocomplete.getMinLength() + ",");
 	    	AjaxUtils.newLine(writer);
     	}
-    	writer.write("			minLength: " + autocomplete.getMinLength() + ",");
     	if (autocomplete.getDelay() != null) {
 	    	AjaxUtils.newLine(writer);
 	    	writer.write("			delay: " + autocomplete.getDelay() + ",");
     	}
-    	AjaxUtils.newLine(writer);
     	writer.write("			search: function (event, ui) { ");
     	AjaxUtils.newLine(writer);
     	writer.write(new AjaxRequest().addEvent(StringUtils.addSingleQuotes("valueChange"))
@@ -85,7 +83,7 @@ public class AutocompleteRenderer extends BaseRenderer {
     			// We send the whole form to monitor changes
     			.addExecute(StringUtils.addSingleQuotes(autocomplete.getClientId()))
 				// We do not re-render anything since 
-				.addRender(StringUtils.addSingleQuotes("@none"))
+				.addRender(StringUtils.addSingleQuotes(autocomplete.getClientId()))
 				.getAjaxCall());
     	writer.write(" 			} ");
     	AjaxUtils.newLine(writer);
@@ -94,6 +92,23 @@ public class AutocompleteRenderer extends BaseRenderer {
     	writer.write("});");
     	AjaxUtils.newLine(writer);
     	ScriptUtils.endScript(writer);
+		
+	}
+	
+	private List<Object> getData(FacesContext context, Autocomplete autocomplete, String data) {
+		
+		Object dataObject = null;
+		MethodExpression dataSource = autocomplete.getDataSource();
+		if (dataSource != null) {
+			try {
+				dataObject = dataSource.invoke(context.getELContext(), new Object[] { context,autocomplete, data});
+				return convertToList(dataObject);
+			} catch (MethodNotFoundException e) {
+				logger.log(Level.INFO,"Method not found: {0}", dataSource.getExpressionString() );
+				
+			}
+		}
+		return null;
 		
 	}
 
