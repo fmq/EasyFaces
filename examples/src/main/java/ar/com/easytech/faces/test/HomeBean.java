@@ -8,9 +8,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.el.MethodExpression;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.codehaus.jackson.JsonFactory;
@@ -18,7 +16,6 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
-import org.primefaces.event.DragDropEvent;
 
 import ar.com.easytech.faces.dashboard.utils.ChartManager;
 import ar.com.easytech.faces.event.DropEvent;
@@ -75,10 +72,6 @@ public class HomeBean {
 	    
 		//
 		
-	}
-
-	public void onCarDrop(DragDropEvent ddEvent) {
-		Object obj = ddEvent.getData();
 	}
 
 	public void objectDropped(DropEvent event) {

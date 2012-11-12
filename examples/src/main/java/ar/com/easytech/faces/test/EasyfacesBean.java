@@ -37,7 +37,7 @@ public class EasyfacesBean {
 	}
 
 
-	public List<String> getDataFromSource() {
+	public List<String> autcompleteFromSource(String value) {
 		
 		List<String> tmpData = new ArrayList<String>();
 		tmpData.add("XXA_TABLE_A");
