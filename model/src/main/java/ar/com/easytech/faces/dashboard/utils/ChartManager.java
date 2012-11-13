@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import ar.com.easytech.faces.utils.ChartTypes;
+import ar.com.easytech.faces.dashboard.utils.ChartTypes;
 
 /**
  * 

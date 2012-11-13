@@ -49,6 +49,8 @@
 	<modules>
 		<module>core</module>
 		<module>dashboard</module>
+		<module>ejb</module>
+		<module>model</module>
 		<module>examples</module>
 	</modules>
 

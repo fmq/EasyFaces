@@ -8,10 +8,10 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>easyFaces-dashboard</artifactId>
+	<artifactId>easyFaces-ejb</artifactId>
 	<packaging>jar</packaging>
-	<name>easyFaces-dashboard</name>
-	<description>EasyTech faces component library</description>
+	<name>easyFaces-ejb</name>
+	<description>EasyTech faces component library - Dashboard Service</description>
 
 	<properties>
 		<shortname>dashboard</shortname>
@@ -23,18 +23,6 @@
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>ar.com.easytech</groupId>
-			<artifactId>easyFaces-core</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>ar.com.easytech</groupId>
-			<artifactId>easyFaces-ejb</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>ar.com.easytech</groupId>

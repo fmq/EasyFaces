@@ -8,10 +8,10 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>easyFaces-dashboard</artifactId>
+	<artifactId>easyFaces-model</artifactId>
 	<packaging>jar</packaging>
-	<name>easyFaces-dashboard</name>
-	<description>EasyTech faces component library</description>
+	<name>easyFaces-model</name>
+	<description>EasyTech faces component library - Dashboard Service</description>
 
 	<properties>
 		<shortname>dashboard</shortname>
@@ -22,34 +22,6 @@
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.1.1</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>ar.com.easytech</groupId>
-			<artifactId>easyFaces-core</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>ar.com.easytech</groupId>
-			<artifactId>easyFaces-ejb</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>ar.com.easytech</groupId>
-			<artifactId>easyFaces-model</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -71,12 +43,6 @@
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.10</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jsflot</groupId>
-			<artifactId>jsflot</artifactId>
-			<version>0.7.0</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

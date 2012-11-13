@@ -241,8 +241,8 @@ the forms of the view will be scanned for validation errors.</description>
   </attribute>
   <attribute>
    <name>dataSource</name>
-   <type>javax.el.MethodExpression</type>
    <method-signature>java.util.List getDataSource(java.lang.String)</method-signature>
+   <type>javax.el.MethodExpression</type>
   </attribute>
  </tag>
 </facelet-taglib>
