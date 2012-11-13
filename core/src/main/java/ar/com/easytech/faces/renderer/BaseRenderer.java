@@ -19,6 +19,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
+import ar.com.easytech.faces.utils.DataUtils;
+
 public abstract class BaseRenderer extends Renderer {
 
 	protected void doRenderChildren(FacesContext context, UIComponent component) throws IOException {
@@ -110,39 +112,9 @@ public abstract class BaseRenderer extends Renderer {
 	
 	protected List<Object> convertDataToList(UIData dataObject) {
 		
-		return convertToList(dataObject.getValue());
+		return DataUtils.convertToList(dataObject.getValue());
 		
 	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected List<Object> convertToList(Object dataObject) {
-		
-		List<Object> data = new ArrayList<Object>();
-		// For now we support only lists, sets and maps..
-		if (dataObject instanceof List ) { 
-			return (List<Object>) dataObject;
-		} else if (dataObject instanceof Set) {
-			Set dataSet = (Set)dataObject;
-			Iterator iter =  dataSet.iterator();
-			while (iter.hasNext()) {
-				data.add(iter.next());
-			}
-		} else if (dataObject instanceof Map) {
-			Map dataMap = (Map)dataObject;
-			for (Object key : dataMap.keySet()) {
-				data.add(dataMap.get(key));
-			}
-		} else if (dataObject instanceof Object[])  {
-			
-			Object[] dataObj = (Object[]) dataObject; 
-			for (int i=0; i< dataObj.length ; i++)
-				data.add(dataObj[i]);
-		}
-		
-		return data;
-		
-	}
-	
 	
 	protected String generateId(FacesContext context, UIComponent component, String prefix) throws IOException {
 		
