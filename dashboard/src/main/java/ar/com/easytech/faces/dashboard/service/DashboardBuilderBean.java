@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 @LocalBean
 @Named
 public class DashboardBuilderBean extends DashboardBuilderTemplate{
-	@PersistenceContext (name="dashboard")
+	@PersistenceContext (name="DashboardPU")
 	EntityManager localEM;
 
 	@Override

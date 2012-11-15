@@ -3,6 +3,7 @@ package ar.com.easytech.faces.dashboard.utils;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import ar.com.easytech.faces.utils.ChartTypes;
 
@@ -21,7 +22,8 @@ public class ChartManager implements Serializable {
 	public static String serialize(Object object) {
 
 		String result = "";
-		
+		if (object == null)
+			return "";
 		if (object.getClass().isArray()) {
 			
 			Object[][] data = (Object[][]) object;
@@ -56,7 +58,6 @@ public class ChartManager implements Serializable {
 	}
 
 	public static String serializeForPie(Map<Object, Object> data) {
-
 		if (data == null)
 			return "[{}]";
 
@@ -69,6 +70,7 @@ public class ChartManager implements Serializable {
 		}
 		String res = result.toString().substring(0,
 				result.toString().length() - 1);
+		Logger.getLogger("serialize").info(res);
 		return res + "]";
 
 	}
