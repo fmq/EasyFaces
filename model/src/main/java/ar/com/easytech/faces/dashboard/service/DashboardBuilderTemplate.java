@@ -3,6 +3,7 @@ package ar.com.easytech.faces.dashboard.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -66,7 +67,8 @@ public abstract class DashboardBuilderTemplate {
 		Logger.getAnonymousLogger().info(widget.getType().toString());
 		switch (widget.getType()) {
 		case PIE:
-			return ChartManager.serializeForPie(executePost(widget.getSql()));
+			String response = executePost(widget.getSql());
+			return ChartManager.serializeForPie(parseResponseToMap(response));
 		case CHART:
 			// If we use a chart we can have more than one series
 			if (widget.getSeries().size() > 0) {
@@ -104,8 +106,8 @@ public abstract class DashboardBuilderTemplate {
 	public List<Object[]> getWidgetDataAsList(Widget widget) {
 		switch (widget.getType()) {
 		case TABLE:
-			return getRemoteEM().createNativeQuery(widget.getSql())
-					.getResultList();
+			String response = executePost(widget.getSql());
+			return parseResponseToList(response);
 
 		default:
 			break;
@@ -113,7 +115,7 @@ public abstract class DashboardBuilderTemplate {
 
 		return null;
 	}
-
+	
 	public void updateModel(long dashboardId, String sortData) {
 		// First we get the data from the jSon object..
 		// Map of columns and each column has a map with
@@ -191,7 +193,7 @@ public abstract class DashboardBuilderTemplate {
 		}
 	}
 
-	private Map<Object, Object> executePost(String sql) {
+	private String executePost(String sql) {
 		Logger.getLogger("DashboardBuilder").info(sql);
 		HttpClient client = new HttpClient();
 		PostMethod method = new PostMethod(SERVICE_URL);
@@ -211,10 +213,11 @@ public abstract class DashboardBuilderTemplate {
 			method.releaseConnection();
 		}
 		Logger.getAnonymousLogger().info(response);
-		return parseResponse(response);
+		response.replaceAll(String.valueOf('"'), "'");
+		return response;
 	}
 	
-	private Map<Object, Object> parseResponse(String response){
+	private Map<Object, Object> parseResponseToMap(String response){
 		// First we get the data from the jSon object..
 		// Map of columns and each column has a map with
 		Map<Object, Object> responseMap = new HashMap<Object, Object>();
@@ -228,6 +231,20 @@ public abstract class DashboardBuilderTemplate {
 		}catch (Exception e){
 		}
 		return responseMap;
+	}
+	
+	private List<Object[]> parseResponseToList(String response){
+		List<Object[]> responseList = new LinkedList<Object[]>();
+		JsonFactory factory = new JsonFactory();
+		ObjectMapper mapper = new ObjectMapper(factory);
+		TypeReference<LinkedList<Object>> typeRef = new TypeReference<LinkedList<Object>>() {
+		};
+	
+		try {
+			responseList = mapper.readValue(response, typeRef);
+		}catch (Exception e){
+		}
+		return responseList;
 	}
 
 	protected abstract EntityManager getLocalEM();

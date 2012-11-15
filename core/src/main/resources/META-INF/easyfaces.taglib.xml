@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<facelet-taglib id="Easyfaces" version="2.0"
- xmlns="http://java.sun.com/xml/ns/javaee"
+<facelet-taglib version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
  <namespace>http://ar.com.easytech/easyfaces</namespace>
  <!-- Component Tags -->
@@ -33,18 +32,18 @@
   </attribute>
   <attribute>
    <description>An expression that specifies the Converter for this component.
-		&lt;p&gt;
-		The value can either be a static value (ID) or an EL expression. When a static id is
-		specified, an instance of the converter type registered with that id is used. When this
-		is an EL expression, the result of evaluating the expression must be an object that
-		implements the Converter interface.
-		&lt;/p&gt; </description>
+&lt;p&gt;
+The value can either be a static value (ID) or an EL expression. When a static id is
+specified, an instance of the converter type registered with that id is used. When this
+is an EL expression, the result of evaluating the expression must be an object that
+implements the Converter interface.
+&lt;/p&gt; </description>
    <name>converter</name>
    <type>javax.faces.convert.Converter</type>
   </attribute>
   <attribute>
    <description>Get a string which uniquely identifies this UIComponent within the scope of the nearest ancestor NamingContainer
-						component. The id is not necessarily unique across all components in the current view.</description>
+component. The id is not necessarily unique across all components in the current view.</description>
    <name>id</name>
    <type>java.lang.String</type>
   </attribute>
@@ -132,7 +131,7 @@
    <type>java.lang.String</type>
   </attribute>
   <attribute>
-   <description>Component ID for witch you whant to StyleErrors. If not set then ALL 
+   <description>Component ID for witch you whant to StyleErrors. If not set then ALL
 the forms of the view will be scanned for validation errors.</description>
    <name>for</name>
    <type>java.lang.String</type>
@@ -220,7 +219,7 @@ the forms of the view will be scanned for validation errors.</description>
   <component>
    <component-type>ar.com.easyfaces.Autocomplete</component-type>
    <renderer-type>ar.com.easyfaces.AutocompleteRenderer</renderer-type>
-   <handler-class>ar.com.easytech.faces.component.autocomplete.AutocompleteHandler</handler-class>
+   <handler-class/>
   </component>
   <attribute>
    <name>style</name>
@@ -241,9 +240,8 @@ the forms of the view will be scanned for validation errors.</description>
    <type>java.lang.Integer</type>
   </attribute>
   <attribute>
-   <display-name>Data Source</display-name>
    <name>dataSource</name>
-   <required>true</required>
+   <method-signature>java.util.List getDataSource(java.lang.String)</method-signature>
    <type>javax.el.MethodExpression</type>
   </attribute>
  </tag>

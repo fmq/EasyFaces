@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import ar.com.easytech.faces.utils.ChartTypes;
+import ar.com.easytech.faces.dashboard.utils.ChartTypes;
 
 /**
  * 

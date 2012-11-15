@@ -25,7 +25,9 @@ import ar.com.easytech.faces.utils.DataUtils;
 		@ResourceDependency(library = "js", name = "jquery.js", target = "head"),
 		@ResourceDependency(library = "js", name = "jquery-ui.js", target = "head"),
 		@ResourceDependency(library = "javax.faces", name = "jsf.js"),
-		@ResourceDependency(library = "easyfaces", name = "easyfaces.js") })
+		@ResourceDependency(library = "easyfaces", name = "easyfaces.js"),
+		@ResourceDependency(library = "easyfaces", name = "autocomplete.js"),
+		@ResourceDependency(library = "css", name = "core.css"),})
 public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder {
 
 	private static final Logger logger = Logger.getLogger(Autocomplete.class.getSimpleName());
@@ -44,6 +46,7 @@ public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder 
 	
 	// List with data returned from method from BB to use as source
 	private List<Object> sourceData = new ArrayList<Object>();
+	private int x, y, width;
 	
 	public Autocomplete() {
 		setRendererType(RENDERER_TYPE);
@@ -138,6 +141,10 @@ public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder 
 		if (event instanceof AutocompleteSearchEvent) {
 			Object dataObject = null;
 			AutocompleteSearchEvent evt = (AutocompleteSearchEvent)event;
+			this.x = evt.getX();
+			this.y = evt.getY();
+			this.width = evt.getWidth();
+			
 			MethodExpression dataSource = getDataSource();
 
 			if (dataSource != null) {
@@ -159,4 +166,17 @@ public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder 
 	public List<Object> getSourceData() {
 		return sourceData;
 	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	
 }

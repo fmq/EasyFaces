@@ -10,10 +10,15 @@ public class AutocompleteSearchEvent extends FacesEvent {
 	private static final long serialVersionUID = 5970173012951136750L;
 
 	private String searchStr;
+	private int x, y, width;
 	
-	public AutocompleteSearchEvent(UIComponent component, String searchStr) {
+	public AutocompleteSearchEvent(UIComponent component, String searchStr, int x, int y, int width) {
 		super(component);
 		this.searchStr = searchStr;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		
 	}
 
     @Override
@@ -28,6 +33,18 @@ public class AutocompleteSearchEvent extends FacesEvent {
 
 	public String getSearchStr() {
 		return searchStr;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 
 }
