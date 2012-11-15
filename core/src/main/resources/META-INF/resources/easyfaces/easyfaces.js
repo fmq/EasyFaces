@@ -3,6 +3,10 @@ EasyFaces = {
 	    return "#" + id.replace(/:/g,"\\:");
 	},
 	
+	errorHandler : function(data) {
+        alert("Error occurred during Ajax call: " + data.description)
+     },
+     
 	styleErrors : function(data, styleClass) {
 		//get ids as array
 		var ids = data.split(",");

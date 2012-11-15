@@ -12,13 +12,13 @@ public class StringUtils {
 		return (value == null || value.equals(""));
 	}
 	
-	public static String listAsString(List<String> invalidIds, String delimiter) {
+	public static String listAsString(List data, String delimiter) {
 		
 		StringBuilder string = new StringBuilder();
-		for (String obj : invalidIds) {
+		for (Object obj : data) {
 			if (string.length() > 0)
 				string.append(delimiter);
-			string.append(obj);
+			string.append(obj.toString());
 		}
 		
 		return string.toString().replace(delimiter+"$", "");
