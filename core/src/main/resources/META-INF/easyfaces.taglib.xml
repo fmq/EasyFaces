@@ -1,248 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<facelet-taglib version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
- <namespace>http://ar.com.easytech/easyfaces</namespace>
- <!-- Component Tags -->
- <tag>
-  <tag-name>draggable</tag-name>
-  <component>
-   <component-type>ar.com.easyfaces.Draggable</component-type>
-   <handler-class/>
-  </component>
-  <attribute>
-   <name>for</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>draggableSelector</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>revert</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>containTo</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Gets The initial value of this component.</description>
-   <name>value</name>
-   <type>java.lang.Object</type>
-  </attribute>
-  <attribute>
-   <description>An expression that specifies the Converter for this component.
+<facelet-taglib version="2.0"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
+	<namespace>http://ar.com.easytech/easyfaces</namespace>
+	<!-- Component Tags -->
+	<tag>
+		<tag-name>draggable</tag-name>
+		<component>
+			<component-type>ar.com.easyfaces.Draggable</component-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<name>for</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>draggableSelector</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>revert</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>containTo</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Gets The initial value of this component.</description>
+			<name>value</name>
+			<type>java.lang.Object</type>
+		</attribute>
+		<attribute>
+			<description>An expression that specifies the Converter for this component.
 &lt;p&gt;
 The value can either be a static value (ID) or an EL expression. When a static id is
 specified, an instance of the converter type registered with that id is used. When this
 is an EL expression, the result of evaluating the expression must be an object that
 implements the Converter interface.
 &lt;/p&gt; </description>
-   <name>converter</name>
-   <type>javax.faces.convert.Converter</type>
-  </attribute>
-  <attribute>
-   <description>Get a string which uniquely identifies this UIComponent within the scope of the nearest ancestor NamingContainer
+			<name>converter</name>
+			<type>javax.faces.convert.Converter</type>
+		</attribute>
+		<attribute>
+			<description>Get a string which uniquely identifies this UIComponent within the scope of the nearest ancestor NamingContainer
 component. The id is not necessarily unique across all components in the current view.</description>
-   <name>id</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>A boolean value that indicates whether this component should be rendered. Default value: true.</description>
-   <name>rendered</name>
-   <type>boolean</type>
-  </attribute>
-  <attribute>
-   <description>Identifies a backing bean property (of type UIComponent or appropriate subclass) to bind to this component instance. This value must be an EL expression.</description>
-   <name>binding</name>
-   <type>javax.faces.component.UIComponent</type>
-  </attribute>
- </tag>
- <tag>
-  <tag-name>droppable</tag-name>
-  <component>
-   <component-type>ar.com.easyfaces.Droppable</component-type>
-   <renderer-type>ar.com.easyfaces.DroppableRenderer</renderer-type>
-   <handler-class>ar.com.easytech.faces.component.dnd.DroppableHandler</handler-class>
-  </component>
-  <attribute>
-   <name>for</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>droppableSelector</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>activeClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>hoverClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>accept</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>tolerance</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>dataSource</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Boolean value to specify the rendering of the component, when set to false component will not be rendered.</description>
-   <name>rendered</name>
-   <required>false</required>
-   <type>java.lang.Boolean</type>
-  </attribute>
-  <attribute>
-   <description>String which uniquely identifies this UIComponent within the scope of the nearest ancestor NamingContainer component.</description>
-   <name>id</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Identifies a backing bean property (of type UIComponent or appropriate subclass) to bind to this component instance. This value must be an EL expression.</description>
-   <name>binding</name>
-   <type>javax.faces.component.UIComponent</type>
-  </attribute>
-  <attribute>
-   <name>targetType</name>
-   <type>java.lang.String</type>
-  </attribute>
- </tag>
- <tag>
-  <tag-name>styleErrors</tag-name>
-  <component>
-   <component-type>ar.easyfaces.js.StyleErrors</component-type>
-   <handler-class/>
-  </component>
-  <attribute>
-   <description>Class to set to invalid Inputs. If none provided error will be used.</description>
-   <name>styleClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>N/A.</description>
-   <name>setFocus</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Component ID for witch you whant to StyleErrors. If not set then ALL
+			<name>id</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>A boolean value that indicates whether this component should be rendered. Default value: true.</description>
+			<name>rendered</name>
+			<type>boolean</type>
+		</attribute>
+		<attribute>
+			<description>Identifies a backing bean property (of type UIComponent or appropriate subclass) to bind to this component instance. This value must be an EL expression.</description>
+			<name>binding</name>
+			<type>javax.faces.component.UIComponent</type>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>droppable</tag-name>
+		<component>
+			<component-type>ar.com.easyfaces.Droppable</component-type>
+			<renderer-type>ar.com.easyfaces.DroppableRenderer</renderer-type>
+			<handler-class>ar.com.easytech.faces.component.dnd.DroppableHandler</handler-class>
+		</component>
+		<attribute>
+			<name>for</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>droppableSelector</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>activeClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>hoverClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>accept</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>tolerance</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>dataSource</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Boolean value to specify the rendering of the component, when set to false component will not be rendered.</description>
+			<name>rendered</name>
+			<required>false</required>
+			<type>java.lang.Boolean</type>
+		</attribute>
+		<attribute>
+			<description>String which uniquely identifies this UIComponent within the scope of the nearest ancestor NamingContainer component.</description>
+			<name>id</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Identifies a backing bean property (of type UIComponent or appropriate subclass) to bind to this component instance. This value must be an EL expression.</description>
+			<name>binding</name>
+			<type>javax.faces.component.UIComponent</type>
+		</attribute>
+		<attribute>
+			<name>targetType</name>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>styleErrors</tag-name>
+		<component>
+			<component-type>ar.easyfaces.js.StyleErrors</component-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<description>Class to set to invalid Inputs. If none provided error will be used.</description>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>N/A.</description>
+			<name>setFocus</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Component ID for witch you whant to StyleErrors. If not set then ALL
 the forms of the view will be scanned for validation errors.</description>
-   <name>for</name>
-   <type>java.lang.String</type>
-  </attribute>
- </tag>
- <tag>
-  <tag-name>script</tag-name>
-  <component>
-   <component-type>ar.easyfaces.js.script</component-type>
-   <handler-class/>
-  </component>
-  <attribute>
-   <description>Class to set to invalid Inputs. If none provided error will be used.</description>
-   <name>styleClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>N/A.</description>
-   <name>setFocus</name>
-   <type>java.lang.String</type>
-  </attribute>
- </tag>
- <tag>
-  <tag-name>dragPanel</tag-name>
-  <component>
-   <component-type>ar.com.easyfaces.DragPanel</component-type>
-   <renderer-type>ar.com.easyfaces.DragPanelRenderer</renderer-type>
-   <handler-class/>
-  </component>
-  <attribute>
-   <name>style</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>styleClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>value</name>
-  </attribute>
-  <attribute>
-   <name>converter</name>
-  </attribute>
- </tag>
- <tag>
-  <tag-name>dataList</tag-name>
-  <component>
-   <component-type>ar.com.easyfaces.DataList</component-type>
-   <renderer-type>ar.com.easyfaces.DataListRenderer</renderer-type>
-   <handler-class/>
-  </component>
-  <attribute>
-   <description>Add's manual sorting support to the list via javascript. Values are true / false</description>
-   <name>sortable</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>hoverClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Determines if it's an Order List (OL) or Unordered list (UL)</description>
-   <name>type</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Style class for indiviaul &amp;lt:li&amp;gt: items</description>
-   <name>itemStyleClass</name>
-  </attribute>
-  <attribute>
-   <name>style</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>styleClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>itemValue</name>
-   <type>java.lang.Object</type>
-  </attribute>
- </tag>
- <tag>
-  <tag-name>autocomplete</tag-name>
-  <component>
-   <component-type>ar.com.easyfaces.Autocomplete</component-type>
-   <renderer-type>ar.com.easyfaces.AutocompleteRenderer</renderer-type>
-   <handler-class/>
-  </component>
-  <attribute>
-   <name>style</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <name>styleClass</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
-   <description>Number of characters before looking</description>
-   <name>minLength</name>
-   <type>java.lang.Integer</type>
-  </attribute>
-  <attribute>
-   <description>Time in milisecs to wait before searching</description>
-   <name>delay</name>
-   <type>java.lang.Integer</type>
-  </attribute>
-  <attribute>
-   <name>dataSource</name>
-   <method-signature>java.util.List getDataSource(java.lang.String)</method-signature>
-   <type>javax.el.MethodExpression</type>
-  </attribute>
- </tag>
+			<name>for</name>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>script</tag-name>
+		<component>
+			<component-type>ar.easyfaces.js.script</component-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<description>Class to set to invalid Inputs. If none provided error will be used.</description>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>N/A.</description>
+			<name>setFocus</name>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>dragPanel</tag-name>
+		<component>
+			<component-type>ar.com.easyfaces.DragPanel</component-type>
+			<renderer-type>ar.com.easyfaces.DragPanelRenderer</renderer-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<name>style</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>value</name>
+		</attribute>
+		<attribute>
+			<name>converter</name>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>dataList</tag-name>
+		<component>
+			<component-type>ar.com.easyfaces.DataList</component-type>
+			<renderer-type>ar.com.easyfaces.DataListRenderer</renderer-type>
+			<handler-class />
+		</component>
+		<attribute>
+			<description>Add's manual sorting support to the list via javascript. Values are true / false</description>
+			<name>sortable</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>hoverClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Determines if it's an Order List (OL) or Unordered list (UL)</description>
+			<name>type</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Style class for indiviaul &amp;lt:li&amp;gt: items</description>
+			<name>itemStyleClass</name>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>itemValue</name>
+			<type>java.lang.Object</type>
+		</attribute>
+	</tag>
+	<tag>
+		<tag-name>autocomplete</tag-name>
+		<component>
+			<component-type>ar.com.easyfaces.Autocomplete</component-type>
+			<renderer-type>ar.com.easyfaces.AutocompleteRenderer</renderer-type>
+			<handler-class>ar.com.easytech.faces.component.autocomplete.AutocompleteHandler</handler-class>
+		</component>
+		<attribute>
+			<display-name>Component Identifier</display-name>
+			<name>id</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<name>styleClass</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Number of characters before looking</description>
+			<name>minLength</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+		<attribute>
+			<description>Time in milisecs to wait before searching</description>
+			<name>delay</name>
+			<type>java.lang.Integer</type>
+		</attribute>
+		<attribute>
+			<name>dataSource</name>
+			<type>javax.el.MethodExpression</type>
+			<method-signature>java.util.List getDataSource(java.lang.String)</method-signature>
+		</attribute>
+		<attribute>
+			<description>The client-side script method to be called after the ajax response comes back, but before the DOM is updated</description>
+			<name>onbeforedomupdate</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>The client-side script method to be called before an ajax request.</description>
+			<name>onbegin</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Javascript code executed when this element loses focus.</description>
+			<display-name>Focus Off Script</display-name>
+			<icon />
+			<name>onblur</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Javascript code executed when this element loses focus and its value has been modified since gaining focus.</description>
+			<name>onchange</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Javascript code executed when a pointer button is clicked over this element.</description>
+			<display-name>Button Click Script</display-name>
+			<icon />
+			<name>onclick</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>The client-side script method to be called after the DOM is updated</description>
+			<name>oncomplete</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>Javascript code executed when a pointer button is double clicked over this element.</description>
+			<display-name>Double Click Script</display-name>
+			<icon />
+			<name>ondblclick</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>The client-side script method to be called when an error has occurred during Ajax communications</description>
+			<name>onerror</name>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>The current value of this component.</description>
+			<display-name>Value</display-name>
+			<icon />
+			<name>value</name>
+			<type>java.lang.Object</type>
+		</attribute>
+	</tag>
 </facelet-taglib>

@@ -20,7 +20,7 @@ import ar.com.easytech.faces.dashboard.model.DashboardColumnLayout;
 import ar.com.easytech.faces.dashboard.model.DashboardDefinition;
 import ar.com.easytech.faces.dashboard.model.Widget;
 import ar.com.easytech.faces.dashboard.model.WidgetInstance;
-import ar.com.easytech.faces.dashboard.service.DashboardBuilderTemplate;
+import ar.com.easytech.faces.dashboard.service.DashboardBuilderBean;
 import ar.com.easytech.faces.dashboard.utils.Producers;
 import ar.com.easytech.faces.renderer.BaseRenderer;
 import ar.com.easytech.faces.utils.AjaxRequest;
@@ -49,7 +49,7 @@ public class DashboardRenderer extends BaseRenderer {
 		if (source != null && source.equals(dashboard.getClientId()) && data != null) {
 			// We have to update the database with new positions.
 			// First we parse the columns
-			DashboardBuilderTemplate builder = Producers.getDashboardBuilder();
+			DashboardBuilderBean builder = Producers.getDashboardBuilder();
 			builder.updateModel(dashboard.getInstanceId(), data);
 				
 		}
@@ -79,7 +79,7 @@ public class DashboardRenderer extends BaseRenderer {
 	@Override
 	public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
 	
-		DashboardBuilderTemplate builder = Producers.getDashboardBuilder();
+		DashboardBuilderBean builder = Producers.getDashboardBuilder();
 		Dashboard dashboard = (Dashboard) component;
 		
 		// Get dashboard for user

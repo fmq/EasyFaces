@@ -12,3 +12,11 @@
 /dashboard/.project
 /dashboard/.setings
 /dashboard/.classpath
+/ejb/.classpath
+/ejb/.project
+/ejb/.settings/
+/ejb/target/
+/model/.classpath
+/model/.project
+/model/.settings/
+/model/target/

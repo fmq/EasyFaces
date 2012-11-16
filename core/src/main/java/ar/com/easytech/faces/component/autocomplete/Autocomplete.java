@@ -13,8 +13,8 @@ import javax.el.MethodNotFoundException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 
 import ar.com.easytech.faces.event.AutocompleteSearchEvent;
@@ -22,13 +22,11 @@ import ar.com.easytech.faces.utils.DataUtils;
 
 @FacesComponent(Autocomplete.COMPONENT_TYPE)
 @ResourceDependencies({
-		@ResourceDependency(library = "js", name = "jquery.js", target = "head"),
-		@ResourceDependency(library = "js", name = "jquery-ui.js", target = "head"),
 		@ResourceDependency(library = "javax.faces", name = "jsf.js"),
 		@ResourceDependency(library = "easyfaces", name = "easyfaces.js"),
 		@ResourceDependency(library = "easyfaces", name = "autocomplete.js"),
 		@ResourceDependency(library = "css", name = "core.css"),})
-public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder {
+public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 
 	private static final Logger logger = Logger.getLogger(Autocomplete.class.getSimpleName());
 
@@ -38,6 +36,9 @@ public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder 
 	//Add custom events
 	private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(
 			Arrays.asList("blur","change","valueChange","click","dblclick","focus","keydown","keypress","keyup","mousedown","mousemove","mouseout","mouseover","mouseup","select"));
+	
+	String[] JS_ACTIONS = {"onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown"};
+	
 	
 	@Override
     public Collection<String> getEventNames() {
@@ -94,8 +95,7 @@ public class Autocomplete extends HtmlInputText implements ClientBehaviorHolder 
 	}
 
 	public MethodExpression getDataSource() {
-		return (MethodExpression) getStateHelper()
-				.eval(PropertyKeys.dataSource);
+		return (MethodExpression) getStateHelper().eval(PropertyKeys.dataSource);
 	}
 
 	public void setDataSource(MethodExpression dataSource) {

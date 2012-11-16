@@ -12,6 +12,7 @@ import javax.faces.render.FacesRenderer;
 
 import ar.com.easytech.faces.event.AutocompleteSearchEvent;
 import ar.com.easytech.faces.renderer.BaseRenderer;
+import ar.com.easytech.faces.utils.ComponentUtils;
 
 @FacesRenderer(componentFamily = "ar.com.easyfaces.Input", rendererType = "ar.com.easyfaces.AutocompleteRenderer")
 public class AutocompleteRenderer extends BaseRenderer {
@@ -28,8 +29,7 @@ public class AutocompleteRenderer extends BaseRenderer {
 		// Decode behaviors for std ajax tag
 		decodeClientBehaviors(context, component);
 		// Process update behaviour
-		Map<String, String> params = context.getExternalContext()
-				.getRequestParameterMap();
+		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
 		Autocomplete autocomplete = (Autocomplete) component;
 		// Get the source of the call to validate it's a valid call
 		String source = params.get("javax.faces.source");
@@ -58,11 +58,11 @@ public class AutocompleteRenderer extends BaseRenderer {
 	public void encodeEnd(FacesContext context, UIComponent component)
 			throws IOException {
 
-		ResponseWriter writer = context.getResponseWriter();
 		Autocomplete autocomplete = (Autocomplete) component;
-
+		Object value = autocomplete.getValue();
 		if (autocomplete.getSourceData().size() == 0) {
 			encodeMarkup(context, autocomplete);
+			encodeClientBehaviors(context, component);
 			// encodeScript(context, autocomplete);
 		} else {
 			encodeResultAsList(context, autocomplete);
@@ -97,24 +97,28 @@ public class AutocompleteRenderer extends BaseRenderer {
 		ResponseWriter writer = context.getResponseWriter();
 		// Outer Div
 		writer.startElement("div", autocomplete);
-		writer.writeAttribute("id", autocomplete.getClientId() + "_wrapper",
-				null);
+		writer.writeAttribute("id", autocomplete.getClientId() + "_wrapper",null);
 		writer.writeAttribute("class", "ui-widget autocmplete", null);
 		// Input
 		writer.startElement("input", autocomplete);
 		writer.writeAttribute("id", autocomplete.getClientId() + "_input", null);
+		writer.writeAttribute("name", autocomplete.getClientId() + "_input", null);
+		writer.writeAttribute("value", autocomplete.getValue() , null);
 		writer.writeAttribute("autocomplete", "off", null);
+		writer.writeAttribute("type", "text", null);
 		String sClass = "ui-autocomplete-input ";
 		if (autocomplete.getStyleClass() != null)
 			sClass += autocomplete.getStyleClass();
 		writer.writeAttribute("class", sClass, null);
-		writer.writeAttribute(
-				"onkeyup",
-				"EasyFaces.autocomplete.updateItems(this, event,'"
+		// Render JS actions
+		writer.writeAttribute( "onkeyup", "EasyFaces.autocomplete.updateItems(this, event,'"
 						+ autocomplete.getClientId() + "',"
 						+ autocomplete.getDelay() + " );", null);
 		writer.writeAttribute( "onfocus", "EasyFaces.autocomplete.inputOnFocus('"+ autocomplete.getClientId() +"');", null);
 		writer.writeAttribute( "onblur", "EasyFaces.autocomplete.inputLostFocus('"+ autocomplete.getClientId() +"');", null);
+		// Render common JS actions
+		ComponentUtils.encodeJsActions(autocomplete, writer, autocomplete.JS_ACTIONS);
+		// End element
 		writer.endElement("input");
 		writer.startElement("div", autocomplete);
 		writer.writeAttribute("id", autocomplete.getClientId(), null);

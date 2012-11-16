@@ -58,7 +58,7 @@ public class ChartManager implements Serializable {
 	}
 
 	public static String serializeForPie(Map<Object, Object> data) {
-		if (data == null)
+		if (data == null || data.size() == 0)
 			return "[{}]";
 
 		StringBuilder result = new StringBuilder();

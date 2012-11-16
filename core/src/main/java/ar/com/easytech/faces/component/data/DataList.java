@@ -18,8 +18,6 @@ import ar.com.easytech.faces.event.DataEvent;
 
 @FacesComponent(DataList.COMPONENT_TYPE)
 @ResourceDependencies({
-		@ResourceDependency(library = "js", name = "jquery.js", target = "head"),
-		@ResourceDependency(library = "js", name = "jquery-ui.js", target = "head"),
 		@ResourceDependency(library = "javax.faces", name = "jsf.js"),
 		@ResourceDependency(library = "easyfaces", name = "easyfaces.js") })
 public class DataList extends DataItem implements ClientBehaviorHolder {

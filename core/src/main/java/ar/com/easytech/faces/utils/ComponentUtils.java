@@ -1,5 +1,6 @@
 package ar.com.easytech.faces.utils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -7,17 +8,20 @@ import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
-import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 public class ComponentUtils {
 
 	private static Set<VisitHint> ROOT_TREE_HINTS =EnumSet.of(VisitHint.SKIP_UNRENDERED);
+	
+    public String[] COMMON_JS_ACTIONS = {"onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", 
+    									"onmouseout", "onkeypress", "onkeydown", "onkeyup", "onfocus", "onblur"};
 	
 	@SuppressWarnings("unchecked")
 	public static <T extends UIComponent> T getComponentById(String id) {
@@ -68,5 +72,17 @@ public class ComponentUtils {
 		});
 		
 		return forms;
+	}
+	
+	public static void encodeJsActions(UIComponent component, ResponseWriter writer,String[] attributes) throws IOException {
+		
+		// Just render the attribute if it has a value
+		for (int i =0 ; i< attributes.length; i++) {
+			String attribute = attributes[i];
+			if (component.getAttributes().get(attribute) != null)
+				writer.writeAttribute(attribute, component.getAttributes().get(attribute), attribute);
+			
+		}
+		
 	}
 }
