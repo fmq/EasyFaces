@@ -97,12 +97,10 @@ public class JavaScriptComponentBase extends UIComponentBase {
 			// also used in &l;tef:ajax&gt;
 			if (AjaxUtils.isAjaxRequest())
 				writer.write(AjaxUtils.onCompleteStart());
-			logger.info(AjaxUtils.onCompleteStart());
 			//Render the actual JS...
 			for (UIComponent child : getChildren()) {
 				child.encodeAll(context);
 			}
-			logger.info(AjaxUtils.onCompleteEnd());
 			//Close the on complete..
 			if (AjaxUtils.isAjaxRequest())
 				writer.write(AjaxUtils.onCompleteEnd());
