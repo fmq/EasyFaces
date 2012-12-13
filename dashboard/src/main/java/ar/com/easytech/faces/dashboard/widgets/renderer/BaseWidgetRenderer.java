@@ -50,7 +50,11 @@ public class BaseWidgetRenderer extends BaseRenderer {
 			sClass += component.getAttributes().get("headerStyleClass");
 		
 		writer.writeAttribute("class", sClass, "class");
+		writer.startElement("h2", component);
+		writer.startElement("span", component);
 		writer.write((String) component.getAttributes().get("title"));
+		writer.endElement("span");
+		writer.endElement("h2");
 		writer.endElement("div");
 		
 		//Body
