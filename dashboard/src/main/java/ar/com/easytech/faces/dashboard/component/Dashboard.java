@@ -44,6 +44,8 @@ import ar.com.easytech.faces.dashboard.component.DashboardColumn.PropertyKeys;
 	@ResourceDependency(library="javax.faces", name="jsf.js"),
 	@ResourceDependency(library="easyfaces", name="easyfaces.js"),
 	@ResourceDependency(library="easyfaces", name="dashboard.js"),
+	@ResourceDependency(library="js", name="jquery-1.8.3.js"),
+	@ResourceDependency(library="js", name="jquery-ui-1.9.2.js"),
 	@ResourceDependency(library="js", name="jquery.flot.js"),
 	@ResourceDependency(library="js", name="jquery.flot.resize.js"),
 	@ResourceDependency(library="js", name="jquery.flot.pie.js"),

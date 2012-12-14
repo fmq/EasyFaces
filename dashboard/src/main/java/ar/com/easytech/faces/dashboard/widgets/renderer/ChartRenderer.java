@@ -36,7 +36,7 @@ public class ChartRenderer extends BaseWidgetRenderer {
 		writer.writeAttribute("id", clientId + "_s", null);
 		writer.writeAttribute("type", "text/javascript", null);
 		AjaxUtils.newLine(writer);
-		writer.write("$(document).ready(function() {");
+		writer.write("jQuery(document).ready(function() {");
 		AjaxUtils.newLine(writer);
 		String data = (String)chart.getData() ;
 		writer.write("		var data = [" + data + "];");
@@ -44,7 +44,7 @@ public class ChartRenderer extends BaseWidgetRenderer {
 		writer.write("		var options = { lines: { show: true } ,legend: {position: 'ne' , margin: [5,5]} };");
 		AjaxUtils.newLine(writer);
 		String tmpId = clientId + "_graph";
-		writer.write("		jQuery.plot($('' + Dashboard.escapeId('"+ tmpId + "')), data, options);");
+		writer.write("		jQuery.plot(jQuery('' + Dashboard.escapeId('"+ tmpId + "')), data, options);");
 		AjaxUtils.newLine(writer);
 		writer.write("});");
 		AjaxUtils.newLine(writer);

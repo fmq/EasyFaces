@@ -45,12 +45,13 @@ public class BaseWidgetRenderer extends BaseRenderer {
 		writer.startElement("div", component);
 		writer.writeAttribute("id", clientId+ "Header", "id");
 		
-		sClass = "widget-header ";
+		sClass = "widget-header title";
 		if (component.getAttributes().get("headerStyleClass") != null)
 			sClass += component.getAttributes().get("headerStyleClass");
 		
 		writer.writeAttribute("class", sClass, "class");
 		writer.startElement("h2", component);
+		writer.writeAttribute("class", "rpt-exc-select", "class");
 		writer.startElement("span", component);
 		writer.write((String) component.getAttributes().get("title"));
 		writer.endElement("span");

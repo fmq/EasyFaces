@@ -164,9 +164,9 @@ public class DashboardRenderer extends BaseRenderer {
 		writer.endElement("div");
 		// Javascript call
 		ScriptUtils.startScript(writer, dashboard.getClientId());
-    	writer.write("$(function() {");
+    	writer.write("jQuery(function() {");
     	AjaxUtils.newLine(writer);
-    	writer.write("		$('.column').sortable({");
+    	writer.write("		jQuery('.column').sortable({");
     	AjaxUtils.newLine(writer);
     	writer.write("			connectWith : '.column',");
     	AjaxUtils.newLine(writer);
