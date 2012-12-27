@@ -39,7 +39,7 @@ public class DashboardBuilderBean implements Serializable {
 	
 	private static final long serialVersionUID = -3625071554648966507L;
 
-	@PersistenceContext (name="DashboardPU")
+	@PersistenceContext (name="DashboardPU", unitName="DashboardPU")
 	EntityManager em;
 
 	private static final String SERVICE_URL = "http://localhost:8080/crm/ws/dashboard/ejecutar/";

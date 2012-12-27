@@ -11,7 +11,7 @@ public class Producers {
 		DashboardBuilderBean builder = null;
 		try {
 			InitialContext ic = new InitialContext();
-			builder = (DashboardBuilderBean) ic.lookup("java:global/easyfaces/DashboardBuilderBean");
+			builder = (DashboardBuilderBean) ic.lookup("java:module/DashboardBuilderBean");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
