@@ -1,11 +1,8 @@
 @CHARSET "UTF-8";
 
 div.graph {
-	margin-left: 25px;
-	margin-top: 25px;
-	width: 300px;
+	margin: 20px 10px;
 	height: 300px;
-	float: left;
 	border: 1px dashed gainsboro;
 }
 
@@ -39,7 +36,6 @@ div.graph {
 }
 
 .widget-header {
-	height: 25px;
 	cursor: move;
 	text-align: left;
 	padding-left: 3px;

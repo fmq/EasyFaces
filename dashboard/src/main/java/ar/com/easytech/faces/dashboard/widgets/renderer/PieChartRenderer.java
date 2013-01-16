@@ -64,11 +64,12 @@ public class PieChartRenderer extends BaseWidgetRenderer {
 		if (pieChart.getHeight() != null)
 			style = "height: " + pieChart.getHeight() + 25 + "px;";
 		
-		if (pieChart.getWidth() != null)
+		/* Es necesario? idem chartRenderer -Matías
+		 * if (pieChart.getWidth() != null) 
 			if (style != null)
 				style +="width: " + pieChart.getWidth() + "px;";
 			else
-				style = "width: " + pieChart.getWidth() + "px;"; 
+				style = "width: " + pieChart.getWidth() + "px;"; */
 		writer.writeAttribute("style", style, "style");
 		//Graph
 		writer.startElement("div", null);
