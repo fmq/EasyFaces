@@ -1,7 +1,6 @@
 package ar.com.easytech.faces.component.autocomplete;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -18,8 +17,7 @@ import ar.com.easytech.faces.utils.ComponentUtils;
 @FacesRenderer(componentFamily = "ar.com.easyfaces.Input", rendererType = "ar.com.easyfaces.AutocompleteRenderer")
 public class AutocompleteRenderer extends BaseRenderer {
 
-	private static final Logger logger = Logger
-			.getLogger(AutocompleteRenderer.class.getSimpleName());
+	private static final Logger logger = Logger.getLogger(AutocompleteRenderer.class.getSimpleName());
 
 	@Override
 	public void decode(FacesContext context, UIComponent component) {
@@ -75,8 +73,6 @@ public class AutocompleteRenderer extends BaseRenderer {
 	private void encodeResultAsList(FacesContext context, Autocomplete autocomplete) throws IOException {
 		ResponseWriter writer = context.getResponseWriter();
 		// Data is set we need to re-render
-		logger.info("Size: " + autocomplete.getSourceData().size());
-		// writer.write(new Gson().toJson(autocomplete.getSourceData()));
 		writer.startElement("ul", autocomplete);
 		writer.writeAttribute("id", autocomplete.getClientId(), null);
 		String style = "z-index: 1; display: block; top: "
@@ -84,33 +80,33 @@ public class AutocompleteRenderer extends BaseRenderer {
 				+ "px; width: " + autocomplete.getWidth() + "px;";
 		writer.writeAttribute("style", style, "style");
 		writer.writeAttribute("class", "autocomplete-list", "class");
+		Map<String,Object> requestMap = context.getExternalContext().getRequestMap();
+		
 		for (Object obj : autocomplete.getSourceData()) {
 			writer.startElement("li", autocomplete);
 			writer.writeAttribute("class", "autocomplete-list-item", "class");
-			writer.startElement("a", autocomplete);
-			if (autocomplete.getLabel() != null) {
-				try {
-					Field field = obj.getClass().getDeclaredField(autocomplete.getLabel());
-					field.setAccessible(true);
-					writer.write((field.get(obj)).toString());
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else
-				writer.write(obj.toString());
 			
-			if (autocomplete.getItemValue() != null) {
-				try {
-					Field field = obj.getClass().getDeclaredField(autocomplete.getItemValue());
-					field.setAccessible(true);
-					writer.writeAttribute("data-value", (field.get(obj)).toString(), null);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (autocomplete.getVar() != null ) {
+				requestMap.put(autocomplete.getVar(), obj);
+				
+				if (autocomplete.getItemValue() != null) {
+					String value = autocomplete.getItemValue();
+					writer.writeAttribute("data-value", value, null);
 				}
-			} else
+			} else {
 				writer.writeAttribute("data-value", obj.toString(), null);
+			}
+			
+			writer.startElement("a", autocomplete);
+			if (autocomplete.getVar() != null ) {
+				
+				if(autocomplete.getLabel() != null) {
+					String label = autocomplete.getLabel(); 
+					writer.write(label);
+				}
+			} else {
+				writer.write(obj.toString());
+			}
 			writer.endElement("a");
 			writer.endElement("li");
 		}

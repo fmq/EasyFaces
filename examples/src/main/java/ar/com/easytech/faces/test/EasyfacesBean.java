@@ -27,12 +27,12 @@ public class EasyfacesBean {
 		data.add("Value 2");
 		
 		
-		tmpData.add(new SelectItem(1,"XXA_TABLE_A"));
-		tmpData.add(new SelectItem(2,"XXA_TABLE_B"));
-		tmpData.add(new SelectItem(3,"XXA_TABLE_C"));
-		tmpData.add(new SelectItem(4,"BBC_TABLE_A"));
-		tmpData.add(new SelectItem(5,"BBC_TABLE_B"));
-		tmpData.add(new SelectItem(6,"BBC_TABLE_C"));
+		tmpData.add(new SelectItem(100,"XXA_TABLE_A"));
+		tmpData.add(new SelectItem(200,"XXA_TABLE_B"));
+		tmpData.add(new SelectItem(300,"XXA_TABLE_C"));
+		tmpData.add(new SelectItem(400,"BBC_TABLE_A"));
+		tmpData.add(new SelectItem(500,"BBC_TABLE_B"));
+		tmpData.add(new SelectItem(600,"BBC_TABLE_C"));
 
 	}
 	
@@ -51,8 +51,14 @@ public class EasyfacesBean {
 
 
 	public List autcompleteFromSource(String value) {
+		List foo = new ArrayList<SelectItem>();
 		
-		return tmpData;
+		for (SelectItem item : tmpData ) {
+			if (item.getName().toUpperCase().contains(value.toUpperCase()))
+				foo.add(item);
+		}
+		
+		return foo;
 	
 	}
 	

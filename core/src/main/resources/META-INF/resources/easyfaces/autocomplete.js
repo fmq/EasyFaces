@@ -72,6 +72,12 @@ EasyFaces.autocomplete = {
 			$(this).removeClass("autocomplete-active-list-item");
 			$(this).children("a").removeClass("id");
 		});
+		
+		$(".autocomplete-list-item").mousedown(function() {
+			if( EasyFaces.autocomplete.selectCurrent(input, list) ){
+				$(input).get(0).blur();
+			}
+		});
 		// Bind key events to input
 		if (input) {
 			var lastKey = null;

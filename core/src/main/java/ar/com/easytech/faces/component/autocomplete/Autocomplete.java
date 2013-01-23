@@ -118,6 +118,14 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.label, label);
 	}
 
+	public String getVar() {
+		return (String) getStateHelper().eval(PropertyKeys.var);
+	}
+
+	public void setVar(String var) {
+		getStateHelper().put(PropertyKeys.var, var);
+	}
+	
 	public String getItemValue() {
 		return (String) getStateHelper().eval(PropertyKeys.itemValue);
 	}
@@ -128,7 +136,7 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 	
 	protected enum PropertyKeys {
 
-		minLenght, delay, position, dataSource, style, styleClass, data, itemValue, label;
+		minLenght, delay, position, dataSource, style, styleClass, data, var,itemValue, label;
 
 		String c;
 
