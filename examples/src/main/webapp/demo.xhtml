@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:et="http://ar.com.easytech/easyfaces">
+
+<h:head>
+	<title><h:outputText value="#{msgs['title']}" /></title>
+</h:head>
+<h:body>
+
+	<!-- JS -->
+	<h:outputScript library="js" target="head" name="jquery-1.7.1.min.js" />
+	<h:outputScript library="js" target="head" name="jquery-ui-1.8.18.custom.js" />
+	<!-- CSS -->
+	<h:outputStylesheet name="style.css" library="css" />
+	<div id="container">
+		 <h:form id="frm">                                                                                                                                          
+            <et:autocomplete id="autoc" minLength="3" delay="500"                                                                                                  
+                value="#{easyfacesBean.selectedValue}" label="name" itemValue="id"                                                                                 
+                dataSource="#{easyfacesBean.autcompleteFromSource}" />                                                                                             
+			<h:outputText value="#{easyfacesBean.selectedValue}" />                                                                                                            
+			<h:commandButton value="Refresh" action="#{easyfacesBean.sendData}" >                                                                                                                                                                                                                     
+			    <f:ajax execute="@form" render="@form" />                                                                                                                      
+			</h:commandButton>                                                                                                                                                 
+                                                                                                                                                                   
+        </h:form> 
+	</div>
+</h:body>
+</html>

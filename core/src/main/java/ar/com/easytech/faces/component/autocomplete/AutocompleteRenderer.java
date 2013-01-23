@@ -1,6 +1,7 @@
 package ar.com.easytech.faces.component.autocomplete;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -34,6 +35,9 @@ public class AutocompleteRenderer extends BaseRenderer {
 		// Get the source of the call to validate it's a valid call
 		String source = params.get("javax.faces.source");
 		String searchStr = params.get(autocomplete.getClientId() + "_input");
+		                                                                                                                                                                                       
+        autocomplete.setSubmittedValue(params.get(autocomplete.getClientId() + "_input_hidden"));
+        
 		if (source != null && source.equals(autocomplete.getClientId())
 				&& searchStr != null) {
 			int x = 0;
@@ -47,8 +51,7 @@ public class AutocompleteRenderer extends BaseRenderer {
 			if (params.get("width") != null)
 				width = new Integer(params.get("width"));
 			// We have to enque the event to get the data
-			AutocompleteSearchEvent autoCompleteEvent = new AutocompleteSearchEvent(
-					autocomplete, searchStr, x, y, width);
+			AutocompleteSearchEvent autoCompleteEvent = new AutocompleteSearchEvent(autocomplete, searchStr, x, y, width);
 			autoCompleteEvent.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
 			autocomplete.queueEvent(autoCompleteEvent);
 		}
@@ -85,7 +88,29 @@ public class AutocompleteRenderer extends BaseRenderer {
 			writer.startElement("li", autocomplete);
 			writer.writeAttribute("class", "autocomplete-list-item", "class");
 			writer.startElement("a", autocomplete);
-			writer.write(obj.toString());
+			if (autocomplete.getLabel() != null) {
+				try {
+					Field field = obj.getClass().getDeclaredField(autocomplete.getLabel());
+					field.setAccessible(true);
+					writer.write((field.get(obj)).toString());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else
+				writer.write(obj.toString());
+			
+			if (autocomplete.getItemValue() != null) {
+				try {
+					Field field = obj.getClass().getDeclaredField(autocomplete.getItemValue());
+					field.setAccessible(true);
+					writer.writeAttribute("data-value", (field.get(obj)).toString(), null);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else
+				writer.writeAttribute("data-value", obj.toString(), null);
 			writer.endElement("a");
 			writer.endElement("li");
 		}
@@ -103,7 +128,7 @@ public class AutocompleteRenderer extends BaseRenderer {
 		writer.startElement("input", autocomplete);
 		writer.writeAttribute("id", autocomplete.getClientId() + "_input", null);
 		writer.writeAttribute("name", autocomplete.getClientId() + "_input", null);
-		writer.writeAttribute("value", autocomplete.getValue() , null);
+		//writer.writeAttribute("value", autocomplete.getValue() , null);
 		writer.writeAttribute("autocomplete", "off", null);
 		writer.writeAttribute("type", "text", null);
 		String sClass = "ui-autocomplete-input ";
@@ -120,6 +145,15 @@ public class AutocompleteRenderer extends BaseRenderer {
 		ComponentUtils.encodeJsActions(autocomplete, writer, autocomplete.JS_ACTIONS);
 		// End element
 		writer.endElement("input");
+		// Add hidden input to store the value
+		writer.startElement("input", autocomplete);
+		writer.writeAttribute("id", autocomplete.getClientId() + "_input_hidden", null);
+		writer.writeAttribute("name", autocomplete.getClientId() + "_input_hidden", null);
+		writer.writeAttribute("value", autocomplete.getValue() , null);
+		writer.writeAttribute("autocomplete", "off", null);
+		writer.writeAttribute("type", "hidden", null);
+		writer.endElement("input");
+		//Div for partial results
 		writer.startElement("div", autocomplete);
 		writer.writeAttribute("id", autocomplete.getClientId(), null);
 		writer.endElement("div");

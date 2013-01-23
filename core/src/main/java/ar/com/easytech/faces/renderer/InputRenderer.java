@@ -35,8 +35,7 @@ public class InputRenderer extends TextRenderer {
 	        }   
 
 	        @Override
-	        public void startElement(String name, UIComponent component)
-	                throws IOException {
+	        public void startElement(String name, UIComponent component) throws IOException {
 	            super.startElement(name, component);
 	            if(name!=null && name.equals("input")){
 	            	// Attributes
@@ -50,7 +49,14 @@ public class InputRenderer extends TextRenderer {
 	                for (String key : component.getAttributes().keySet()) {
 	                	if (key.startsWith("data-"))
 	                		super.writeAttribute(key, component.getAttributes().get(key), key);
+	                	// Required and disabled for bootstrap
+		                if (key.equalsIgnoreCase("required")) {
+		                	if ((Boolean) component.getAttributes().get(key))
+		                		super.write(" required " );
+		                }
+		                
 	                }
+	                
 
 	            }
 	        }   

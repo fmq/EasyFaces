@@ -298,6 +298,11 @@ the forms of the view will be scanned for validation errors.</description>
    <name>value</name>
    <type>java.lang.Object</type>
   </attribute>
+  <attribute>
+   <display-name>label</display-name>
+   <name>label</name>
+   <type>java.lang.String</type>
+  </attribute>
  </tag>
  <tag>
   <tag-name>conditionalComment</tag-name>

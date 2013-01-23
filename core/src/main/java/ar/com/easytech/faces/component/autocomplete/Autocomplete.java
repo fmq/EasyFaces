@@ -110,9 +110,25 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 		getStateHelper().put(PropertyKeys.data, data);
 	}
 
+	public String getLabel() {
+		return (String) getStateHelper().eval(PropertyKeys.label);
+	}
+
+	public void setLabel(String label) {
+		getStateHelper().put(PropertyKeys.label, label);
+	}
+
+	public String getItemValue() {
+		return (String) getStateHelper().eval(PropertyKeys.itemValue);
+	}
+
+	public void setItemValue(String itemValue) {
+		getStateHelper().put(PropertyKeys.itemValue, itemValue);
+	}
+	
 	protected enum PropertyKeys {
 
-		minLenght, delay, position, dataSource, style, styleClass, data;
+		minLenght, delay, position, dataSource, style, styleClass, data, itemValue, label;
 
 		String c;
 
@@ -152,9 +168,7 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 					dataObject = dataSource.invoke(FacesContext.getCurrentInstance().getELContext(), new Object[] { evt.getSearchStr() });
 					sourceData = DataUtils.convertToList(dataObject);
 				} catch (MethodNotFoundException e) {
-					logger.log(Level.INFO, "Method not found: {0}",
-							dataSource.getExpressionString());
-
+					logger.log(Level.INFO, "Method not found: {0}", dataSource.getExpressionString());
 				}
 
 				FacesContext.getCurrentInstance().renderResponse();

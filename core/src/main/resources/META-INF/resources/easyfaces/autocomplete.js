@@ -105,8 +105,12 @@ EasyFaces.autocomplete = {
 			return false;
 		
 		var $selected = $listItems.filter('.autocomplete-active-list-item');
-		if ($selected)
+		if ($selected) {
 			input.value = $selected.first().text();
+			//Get hidden field
+			hidden = document.getElementById(input.id +"_hidden");
+			hidden.value = $selected.data('value');
+		}
 		
 		$listItems.removeClass('autocomplete-active-list-item');
 		

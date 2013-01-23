@@ -20,3 +20,13 @@
 /model/.project
 /model/.settings/
 /model/target/
+/dashboard/src/main/java/ar/com/easytech/faces/dashboard/widgets/.DS_Store
+dashboard-model/.classpath
+dashboard-model/.project
+dashboard-model/.settings/org.eclipse.jdt.core.prefs
+dashboard-model/.settings/org.eclipse.m2e.core.prefs
+dashboard-model/.settings/org.eclipse.wst.common.component
+dashboard-model/.settings/org.eclipse.wst.common.project.facet.core.xml
+dashboard-model/.settings/org.hibernate.eclipse.console.prefs
+dashboard-model/target/dashboard-model-1.1.jar
+examples/.classpath
