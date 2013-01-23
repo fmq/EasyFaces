@@ -4,7 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"                                                                                                                    
     xmlns:f="http://java.sun.com/jsf/core"                                                                                                                         
     xmlns:h="http://java.sun.com/jsf/html"                                                                                                                         
-    xmlns:et="http://ar.com.easytech/easyfaces">                                                                                                                   
+    xmlns:ef="http://ar.com.easytech/easyfaces">                                                                                                                   
                                                                                                                                                                    
 <h:head>                                                                                                                                                           
     <title><h:outputText value="#{msgs['title']}" /></title>                                                                                                       
@@ -17,8 +17,8 @@
     <!-- CSS -->                                                                                                                                                   
     <h:outputStylesheet name="style.css" library="css" />                                                                                                          
     <div id="container">                                                                                                                                           
-         <h:form id="frm">                                                                                                                                         
-            <et:autocomplete id="autoc" minLength="3" delay="500"                                                                                                  
+         <h:form id="frm">
+            <ef:autocomplete id="autoc" minLength="3" delay="500"                                                                                                  
                 value="#{easyfacesBean.selectedValue}" label="#{p.name}" itemValue="#{p.id}" var="p"                                                               
                 noDataLabel="Sin Datos"                                                                                                                                                                                                                                               
                 dataSource="#{easyfacesBean.autcompleteFromSource}" />                                                                                             
