@@ -50,8 +50,8 @@ public class EasyfacesBean {
 	}
 
 
-	public List autcompleteFromSource(String value) {
-		List foo = new ArrayList<SelectItem>();
+	public List<SelectItem> autcompleteFromSource(String value) {
+		List<SelectItem> foo = new ArrayList<SelectItem>();
 		
 		for (SelectItem item : tmpData ) {
 			if (item.getName().toUpperCase().contains(value.toUpperCase()))

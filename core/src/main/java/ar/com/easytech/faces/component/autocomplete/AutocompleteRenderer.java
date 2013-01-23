@@ -60,11 +60,12 @@ public class AutocompleteRenderer extends BaseRenderer {
 			throws IOException {
 
 		Autocomplete autocomplete = (Autocomplete) component;
-		Object value = autocomplete.getValue();
-		if (autocomplete.getSourceData().size() == 0) {
+		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+		String searchStr = params.get(autocomplete.getClientId() + "_input");
+		logger.info("SearchStr: " + searchStr);
+		if (searchStr == null) {
 			encodeMarkup(context, autocomplete);
 			encodeClientBehaviors(context, component);
-			// encodeScript(context, autocomplete);
 		} else {
 			encodeResultAsList(context, autocomplete);
 		}
@@ -82,33 +83,42 @@ public class AutocompleteRenderer extends BaseRenderer {
 		writer.writeAttribute("class", "autocomplete-list", "class");
 		Map<String,Object> requestMap = context.getExternalContext().getRequestMap();
 		
-		for (Object obj : autocomplete.getSourceData()) {
+		if (autocomplete.getSourceData().isEmpty()) {
 			writer.startElement("li", autocomplete);
-			writer.writeAttribute("class", "autocomplete-list-item", "class");
-			
-			if (autocomplete.getVar() != null ) {
-				requestMap.put(autocomplete.getVar(), obj);
-				
-				if (autocomplete.getItemValue() != null) {
-					String value = autocomplete.getItemValue();
-					writer.writeAttribute("data-value", value, null);
-				}
-			} else {
-				writer.writeAttribute("data-value", obj.toString(), null);
-			}
-			
+			writer.writeAttribute("data-value", "-1", null);
 			writer.startElement("a", autocomplete);
-			if (autocomplete.getVar() != null ) {
-				
-				if(autocomplete.getLabel() != null) {
-					String label = autocomplete.getLabel(); 
-					writer.write(label);
-				}
-			} else {
-				writer.write(obj.toString());
-			}
+			writer.write((autocomplete.getNoDataLabel() != null) ? autocomplete.getNoDataLabel() : "No Data");
 			writer.endElement("a");
 			writer.endElement("li");
+		} else {
+			for (Object obj : autocomplete.getSourceData()) {
+				writer.startElement("li", autocomplete);
+				writer.writeAttribute("class", "autocomplete-list-item", "class");
+				
+				if (autocomplete.getVar() != null ) {
+					requestMap.put(autocomplete.getVar(), obj);
+					
+					if (autocomplete.getItemValue() != null) {
+						String value = autocomplete.getItemValue();
+						writer.writeAttribute("data-value", value, null);
+					}
+				} else {
+					writer.writeAttribute("data-value", obj.toString(), null);
+				}
+				
+				writer.startElement("a", autocomplete);
+				if (autocomplete.getVar() != null ) {
+					
+					if(autocomplete.getLabel() != null) {
+						String label = autocomplete.getLabel(); 
+						writer.write(label);
+					}
+				} else {
+					writer.write(obj.toString());
+				}
+				writer.endElement("a");
+				writer.endElement("li");
+			}
 		}
 		writer.endElement("ul");
 	}
