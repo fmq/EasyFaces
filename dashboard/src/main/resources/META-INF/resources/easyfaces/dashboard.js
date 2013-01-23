@@ -6,15 +6,15 @@ Dashboard = {
 		getWidgets : function(id) {
 			 
 			var stringDiv = "{";
-			$("#" + id.replace(/:/g,"\\:")).children(".column").each(function(colPosition) {
-				var column = $(this);
+			jQuery("#" + id.replace(/:/g,"\\:")).children(".column").each(function(colPosition) {
+				var column = jQuery(this);
 				if (stringDiv.length > 1) {
 					stringDiv += ",";
 				}
 				stringDiv += '"' + column.attr("data-layout-id") + '":{';
 				var first = true;
-				$($(this)).children(".widgetbox").each(function(widgetPosition) {
-					var widget = $(this);
+				jQuery(jQuery(this)).children(".widgetbox").each(function(widgetPosition) {
+					var widget = jQuery(this);
 					if (!first) {
 						stringDiv += ","
 					}

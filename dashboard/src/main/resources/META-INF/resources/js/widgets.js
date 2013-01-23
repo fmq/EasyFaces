@@ -1,6 +1,6 @@
 Widgets = {
 	initDashboard : function(id) {
-		$(".column").sortable(
+		jQuery(".column").sortable(
 				{
 					connectWith : ".column",
 					handle : '.WidgetHeader',
@@ -16,7 +16,7 @@ Widgets = {
 						
 					}
 				});
-		$(".column").disableSelection();
+		jQuery(".column").disableSelection();
 	},
 
 	//Data is an array of arrays with all the data

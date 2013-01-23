@@ -63,11 +63,12 @@ public class ChartRenderer extends BaseWidgetRenderer {
 		if (chart.getHeight() != null)
 			style = "height: " + chart.getHeight() + "px;";
 		
-		if (chart.getWidth() != null)
+		/* Es necesario? Sin ancho y con overflow scroll quizás quede mejor - Matías
+		 * if (chart.getWidth() != null)
 			if (style != null)
 				style +="width: " + chart.getWidth() + "px;";
 			else
-				style = "width: " + chart.getWidth() + "px;"; 
+				style = "width: " + chart.getWidth() + "px;"; */
 		writer.writeAttribute("style", style, "style");
 		//Graph
 		writer.writeAttribute("id", clientId + "_graph", "id");
