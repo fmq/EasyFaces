@@ -110,5 +110,34 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+	
+	<!-- File Upload Filter -->
+	<filter>
+      <filter-name>Upload Filter</filter-name>
+      <filter-class>ar.com.easytech.faces.filters.FileUploadFilter</filter-class>
+      <init-param>
+         <param-name>uploadBase</param-name>
+         <param-value> /Users/FMQ/servers/uploads/</param-value>
+      </init-param>
+   </filter>
 
+   <filter-mapping>
+      <filter-name>Upload Filter</filter-name>
+      <url-pattern>/upload/*</url-pattern>
+   </filter-mapping>
+   
+   <!-- Image Servlet -->
+	<servlet>
+		<servlet-name>imageServlet</servlet-name>
+		<servlet-class>ar.com.easytech.servlet.ImageServlet</servlet-class>
+		<init-param>
+			<param-name>imagePath</param-name>
+			<param-value>/Users/FMQ/servers/uploads/</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>imageServlet</servlet-name>
+		<url-pattern>/images/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

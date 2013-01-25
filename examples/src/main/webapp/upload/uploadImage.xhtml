@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>                                                                                                                             
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">                       
+<html xmlns="http://www.w3.org/1999/xhtml"                                                                                                                         
+      xmlns:h="http://java.sun.com/jsf/html"                                                                                                                       
+      xmlns:f="http://java.sun.com/jsf/core"                                                                                                                       
+      xmlns:ef="http://ar.com.easytech/easyfaces" >                                                                                                                
+    <h:head>                                                                                                                                                       
+        <title>A file upload test</title>                                                                                                                          
+    </h:head>                                                                                                                                                      
+    <h:body>                                                                                                                                                       
+        <h:form enctype="multipart/form-data">                                                                                                                     
+            Upload an image:<br/>                                                                                                                                  
+            <ef:fileUpload target="/tmp" value="#{fileUploadBean.file}" styleClass="BTN ACTION" /><br/><br/>                                                                                                                                                                           
+            <h:commandButton value="Submit" action="#{fileUploadBean.doSubmit}" />                                                                                 
+            <h:outputText value="#{fileUploadBean.file.name}" />                                                                                                   
+        </h:form>                                                                                                                                                  
+    </h:body>                                                                                                                                                      
+</html>  

@@ -267,7 +267,6 @@ the forms of the view will be scanned for validation errors.</description>
   <attribute>
    <name>dataSource</name>
    <type>javax.el.MethodExpression</type>
-   <method-signature>java.util.List getDataSource(java.lang.String)</method-signature>
   </attribute>
   <attribute>
    <description>The client-side script method to be called after the ajax response comes back, but before the DOM is updated</description>
@@ -331,6 +330,25 @@ the forms of the view will be scanned for validation errors.</description>
    <name>test</name>
    <required>true</required>
    <type>java.lang.String</type>
+  </attribute>
+ </tag>
+ <tag>
+    <tag-name>fileUpload</tag-name>
+    <component>
+       <component-type>javax.faces.Input</component-type>
+       <renderer-type>ar.com.easyfaces.uploadRenderer</renderer-type>
+    </component>
+    <attribute>
+	   <description>Target where file will be stored once uploaded. If Relative is false target can be anywhere in server.</description>
+	   <name>target</name>
+	   <required>true</required>
+	   <type>java.lang.String</type>
+  </attribute>
+  <attribute>
+	   <description>If true (default) target is relative to deployment.</description>
+	   <name>relative</name>
+	   <required>false</required>
+	   <type>java.lang.Boolean</type>
   </attribute>
  </tag>
 </facelet-taglib>

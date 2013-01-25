@@ -63,7 +63,7 @@ public class AutocompleteRenderer extends BaseRenderer {
 		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
 		String searchStr = params.get(autocomplete.getClientId() + "_input");
 		logger.info("SearchStr: " + searchStr);
-		if (searchStr == null) {
+		if (searchStr == null || searchStr.equals("")) {
 			encodeMarkup(context, autocomplete);
 			encodeClientBehaviors(context, component);
 		} else {
@@ -123,8 +123,7 @@ public class AutocompleteRenderer extends BaseRenderer {
 		writer.endElement("ul");
 	}
 
-	private void encodeMarkup(FacesContext context, Autocomplete autocomplete)
-			throws IOException {
+	private void encodeMarkup(FacesContext context, Autocomplete autocomplete) throws IOException {
 		ResponseWriter writer = context.getResponseWriter();
 		// Outer Div
 		writer.startElement("div", autocomplete);

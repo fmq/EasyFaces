@@ -20,6 +20,7 @@ import org.codehaus.jackson.type.TypeReference;
 import ar.com.easytech.faces.dashboard.utils.ChartManager;
 import ar.com.easytech.faces.event.DropEvent;
 
+
 @ManagedBean
 public class HomeBean {
 
