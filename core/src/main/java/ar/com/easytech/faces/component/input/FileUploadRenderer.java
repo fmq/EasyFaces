@@ -61,42 +61,48 @@ public class FileUploadRenderer extends Renderer {
 		HttpServletRequest request = (HttpServletRequest) external.getRequest();
 		String clientId = component.getClientId(context);
 		FileItem item = (FileItem) request.getAttribute(clientId);
-
-		String target = (String) component.getAttributes().get("target");
+		
+		
+		try {
+			File file = new File(getFileName(component, request));
+			item.write(file);
+			((UIInput) component).setSubmittedValue((file != null) ? file : EMPTY_STRING);
+		} catch (Exception _ex) {
+			throw new FacesException(_ex);
+		}
+	}
+	
+	private String getFileName(UIComponent component, HttpServletRequest request) throws Exception {
+		
 		String path = (String)request.getParameter("path");
 		
-
-		if (path != null) {
-			File file;
-			// Construct the filename
-			StringBuilder fullFileName = new StringBuilder();
-			String fileName = request.getParameter("fileName");
-			// Path always ends with /
-			path = path.endsWith("/") ? path : path + "/";
-			// Path
-			fullFileName.append(path);
-			// Any specific target
-			if (target != null) {
-				// Target does not start with slash
-				target = target.startsWith("/") ? target.substring(1) : target;
-				// and always ends with a slash
-				target = target.endsWith("/") ? target : target + "/";
-				fullFileName.append(target);
-			}
-			// Finaly the file nam
-			fullFileName.append(fileName);
-			file = new File(fullFileName.toString());
-
-			try { 
-				item.write(file);
-			} catch (Exception ex) {
-				throw new FacesException(ex);
-			}
-			
-			((UIInput) component).setSubmittedValue((file != null) ? file : EMPTY_STRING);
-			
-		} else
-			throw new FacesException("path required");
+		if (path == null)
+			throw new Exception("Path Required");
+		
+		String target = (String) component.getAttributes().get("target");
+		// Construct the filename
+		StringBuilder fullFileName = new StringBuilder();
+		String fileName = request.getParameter("fileName");
+		// Path always ends with /
+		path = path.endsWith("/") ? path : path + "/";
+		// Path
+		fullFileName.append(path);
+		// Any specific target
+		if (target != null) {
+			// Target does not start with slash
+			target = target.startsWith("/") ? target.substring(1) : target;
+			// and always ends with a slash
+			target = target.endsWith("/") ? target : target + "/";
+			fullFileName.append(target);
+		}
+		// Finally the file name
+		// See if filename was passed.
+		String passedFileName = (String)component.getAttributes().get("fileName");
+		// Append to the full path
+		fullFileName.append(passedFileName != null && !passedFileName.equals("") ? passedFileName : fileName);
+		
+		return fullFileName.toString();
+		
 	}
 
 	private Map<String, List<ClientBehavior>> getPassThruBehaviors(

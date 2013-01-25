@@ -16,6 +16,9 @@ public class FileUploadBean implements Serializable  {
 
 	public String doSubmit() {
 		Logger.getLogger(FileUploadBean.class.toString()).info("File Name: " + file.getName());
+		Logger.getLogger(FileUploadBean.class.toString()).info("File Absolute Path: " + file.getAbsolutePath());
+		Logger.getLogger(FileUploadBean.class.toString()).info("File Path: " + file.getPath());
+		
 		return "/upload/uploadImage";
 	}
 	

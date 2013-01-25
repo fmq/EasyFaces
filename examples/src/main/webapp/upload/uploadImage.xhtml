@@ -12,7 +12,8 @@
             Upload an image:<br/>                                                                                                                                  
             <ef:fileUpload target="/tmp" value="#{fileUploadBean.file}" styleClass="BTN ACTION" /><br/><br/>                                                                                                                                                                           
             <h:commandButton value="Submit" action="#{fileUploadBean.doSubmit}" />                                                                                 
-            <h:outputText value="#{fileUploadBean.file.name}" />                                                                                                   
+            <h:outputText value="#{fileUploadBean.file.name}" />
+            <h:graphicImage/>                                                                                                   
         </h:form>                                                                                                                                                  
     </h:body>                                                                                                                                                      
 </html>  
