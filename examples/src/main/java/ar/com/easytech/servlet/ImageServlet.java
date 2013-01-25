@@ -71,7 +71,7 @@ public class ImageServlet extends HttpServlet {
         }
 
         // Get content type by filename.
-        String contentType = getServletContext().getMimeType(image.getName());
+        String contentType = getServletContext().getMimeType(image.getName().toLowerCase());
 
         // Check if file is actually an image (avoid download of other files by hackers!).
         // For all content types, see: http://www.w3schools.com/media/media_mimeref.asp
