@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
@@ -43,8 +44,6 @@ public class DashboardBuilderBean implements Serializable {
 	@PersistenceContext (name="DashboardPU", unitName="DashboardPU")
 	EntityManager em;
 
-	private static final String SERVICE_URL = "http://localhost:8080/koop/koop-ws/dashboard/ejecutar/";
-
 	public DashboardDefinition getDashboardForUser(String userId) {
 
 		// Cargo el dashboard para el usuario
@@ -75,7 +74,7 @@ public class DashboardBuilderBean implements Serializable {
 		return widgetinstances;
 	}
 
-	public String getWidgetData(Widget widget) {
+	public String getWidgetData(Widget widget, String userName) {
 
 		// POr ahora recibe un sql y devuelve un Map con los datos que puede ser
 		// si es un PIE Map<Label, Value> por lo que el query tiene 2 campos
@@ -87,7 +86,7 @@ public class DashboardBuilderBean implements Serializable {
 		Logger.getAnonymousLogger().info(widget.getType().toString());
 		switch (widget.getType()) {
 		case PIE:
-			String response = executePost(widget.getSql());
+			String response = executePost(widget.getServiceUrl(), userName);
 			return ChartManager.serializeForPie(parseResponseToMap(response));
 		case CHART:
 			// If we use a chart we can have more than one series
@@ -104,7 +103,7 @@ public class DashboardBuilderBean implements Serializable {
 						data.append(",");
 					data.append("{");
 					data.append("data: ");
-					data.append(ChartManager.serialize(executePost(series.getSql())));
+					data.append(ChartManager.serialize(getMapFromJSon(executePost(series.getServiceUrl(), userName))));
 					data.append(", label: '" + series.getName() + "'");
 					data.append("}");
 
@@ -112,7 +111,7 @@ public class DashboardBuilderBean implements Serializable {
 				}
 				return data.toString();
 			} else
-				return ChartManager.serialize(executePost(widget.getSql()));
+				return ChartManager.serialize(executePost(widget.getServiceUrl(), userName));
 		default:
 			break;
 		}
@@ -122,10 +121,10 @@ public class DashboardBuilderBean implements Serializable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Object[]> getWidgetDataAsList(Widget widget) {
+	public List<Object[]> getWidgetDataAsList(Widget widget, String userName) {
 		switch (widget.getType()) {
 		case TABLE:
-			String response = executePost(widget.getSql());
+			String response = executePost(widget.getServiceUrl(),userName);
 			return parseResponseToList(response);
 
 		default:
@@ -133,6 +132,28 @@ public class DashboardBuilderBean implements Serializable {
 		}
 
 		return null;
+	}
+	
+	private TreeMap<Object, Object> getMapFromJSon(String jSon) {
+		TreeMap<Object, Object> dataMap = new TreeMap<Object, Object>();
+		JsonFactory factory = new JsonFactory();
+		ObjectMapper mapper = new ObjectMapper(factory);
+		TypeReference<TreeMap<Object, Object>> typeRef = new TypeReference<TreeMap<Object,Object>>() { };
+
+		try {
+			dataMap = mapper.readValue(jSon, typeRef);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dataMap;
 	}
 	
 	public void updateModel(long dashboardId, String sortData) {
@@ -212,12 +233,12 @@ public class DashboardBuilderBean implements Serializable {
 		}
 	}
 
-	private String executePost(String sql) {
-		Logger.getLogger("DashboardBuilder").info(sql);
+	private String executePost(String serviceUrl, String userName) {
+		Logger.getLogger("DashboardBuilder").info(serviceUrl);
 		HttpClient client = new HttpClient();
-		PostMethod method = new PostMethod(SERVICE_URL);
+		PostMethod method = new PostMethod(serviceUrl);
 		String response = "";
-		method.addParameter("query", sql);
+		method.addParameter("userName", "userName");
 		try {
 			int returnCode = client.executeMethod(method);
 			if (returnCode == HttpStatus.SC_NOT_IMPLEMENTED) {
@@ -226,7 +247,7 @@ public class DashboardBuilderBean implements Serializable {
 			}
 			response = method.getResponseBodyAsString();
 		} catch (Exception e) {
-			Logger.getAnonymousLogger().warning("Error al ejecutar SQL");
+			Logger.getAnonymousLogger().warning("Error Getting widget data");
 		} finally{
 			method.releaseConnection();
 		}

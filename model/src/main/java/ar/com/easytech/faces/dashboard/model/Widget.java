@@ -45,6 +45,8 @@ public class Widget implements Serializable {
 	private String title;
 	private int height;
 	private int width;
+	@Column(name="service_url")
+	private String serviceUrl;
 	
 	@Column(name="style_class")
 	private String styleClass;
@@ -178,4 +180,11 @@ public class Widget implements Serializable {
 		this.additionalData = additionalData;
 	}
 
+	public String getServiceUrl() {
+		return serviceUrl;
+	}
+
+	public void setServiceUrl(String serviceUrl) {
+		this.serviceUrl = serviceUrl;
+	}
 }

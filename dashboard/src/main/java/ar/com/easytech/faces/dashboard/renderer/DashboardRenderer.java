@@ -110,7 +110,7 @@ public class DashboardRenderer extends BaseRenderer {
 				case PIE:
 					// Add content
 					PieChart pieChart = new PieChart();
-					String data = builder.getWidgetData(widget);
+					String data = builder.getWidgetData(widget, dashboard.getUserId());
 					pieChart.setData(data);
 					pieChart.setInstanceId(widgetInstance.getInstanceId());
 					pieChart.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_pie");
@@ -124,7 +124,7 @@ public class DashboardRenderer extends BaseRenderer {
 					break;
 				case CHART:
 					Chart chart = new Chart();
-					String chartData = builder.getWidgetData(widget);
+					String chartData = builder.getWidgetData(widget,dashboard.getUserId());
 					chart.setData(chartData);
 					chart.setInstanceId(widgetInstance.getInstanceId());
 					chart.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_chart");
@@ -139,7 +139,7 @@ public class DashboardRenderer extends BaseRenderer {
 				case TABLE:
 					DataTable table = new DataTable();
 					table.setHeaders(new ArrayList<String>(Arrays.asList(widget.getAdditionalData().split(","))));
-					table.setData(builder.getWidgetDataAsList(widget));
+					table.setData(builder.getWidgetDataAsList(widget,dashboard.getUserId()));
 					table.setInstanceId(widgetInstance.getInstanceId());
 					table.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_table");
 					table.setTitle(widget.getTitle());

@@ -8,7 +8,6 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.FacesRenderer;
 
 import ar.com.easytech.faces.dashboard.component.widgets.Chart;
-import ar.com.easytech.faces.dashboard.component.widgets.PieChart;
 import ar.com.easytech.faces.utils.AjaxUtils;
 
 @FacesRenderer(componentFamily = "ar.com.easyfaces.Widget", rendererType = "ar.com.easyfaces.ChartRenderer")
@@ -30,7 +29,7 @@ public class ChartRenderer extends BaseWidgetRenderer {
 		Chart chart = (Chart)component;
 
 		ResponseWriter writer = context.getResponseWriter();
-		String clientId = generateId(context, component, "pie");
+		String clientId = generateId(context, component, "chart");
 		//Javascript call
 	    writer.startElement("script", null);
 		writer.writeAttribute("id", clientId + "_s", null);

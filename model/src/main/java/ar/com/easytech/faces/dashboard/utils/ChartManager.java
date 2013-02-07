@@ -3,6 +3,7 @@ package ar.com.easytech.faces.dashboard.utils;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import ar.com.easytech.faces.dashboard.utils.ChartTypes;
@@ -19,6 +20,7 @@ public class ChartManager implements Serializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static String serialize(Object object) {
 
 		String result = "";
@@ -37,6 +39,22 @@ public class ChartManager implements Serializable {
 			return result;
 		} else if (object instanceof String) {
 			return object.toString();
+		} else if (object instanceof TreeMap) {
+			TreeMap<Object, Object> data = (TreeMap<Object, Object>) object;
+			StringBuilder str = new StringBuilder();
+			str.append("[");
+
+			for (Object key : data.keySet()) {
+				str.append("[")
+					.append(key)
+					.append(",")
+					.append(data.get(key))
+					.append("],");
+			}
+			
+			result = str.toString().substring(0,str.toString().length() - 1);
+			result += "]";
+
 		} else if (object instanceof Map) {
 			Map<Object, Object> data = (HashMap<Object, Object>) object;
 			StringBuilder str = new StringBuilder();
@@ -53,7 +71,7 @@ public class ChartManager implements Serializable {
 			result = str.toString().substring(0,str.toString().length() - 1);
 			result += "]";
 
-		}
+		} 
 		return result;
 	}
 
