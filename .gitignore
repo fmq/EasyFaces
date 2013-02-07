@@ -30,3 +30,12 @@ dashboard-model/.settings/org.eclipse.wst.common.project.facet.core.xml
 dashboard-model/.settings/org.hibernate.eclipse.console.prefs
 dashboard-model/target/dashboard-model-1.1.jar
 examples/.classpath
+security/target/classes/META-INF/MANIFEST.MF
+security/target/classes/META-INF/maven/ar.com.easytech/easyFaces-ejb/pom.xml
+security/target/classes/ar/com/easytech/faces/dashboard/service/DashboardBuilderBean$1.class
+security/target/classes/ar/com/easytech/faces/dashboard/service/DashboardBuilderBean$2.class
+security/target/classes/ar/com/easytech/faces/dashboard/service/DashboardBuilderBean$3.class
+security/target/classes/ar/com/easytech/faces/dashboard/service/DashboardBuilderBean$4.class
+security/target/classes/ar/com/easytech/faces/dashboard/service/DashboardBuilderBean.class
+security/target/classes/ar/com/easytech/faces/dashboard/utils/Producers.class
+security/target/easyFaces-ejb-1.1.jar

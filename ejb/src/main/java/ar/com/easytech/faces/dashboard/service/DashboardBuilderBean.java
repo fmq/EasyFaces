@@ -13,6 +13,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -42,15 +43,20 @@ public class DashboardBuilderBean implements Serializable {
 	@PersistenceContext (name="DashboardPU", unitName="DashboardPU")
 	EntityManager em;
 
-	private static final String SERVICE_URL = "http://localhost:8080/crm/ws/dashboard/ejecutar/";
+	private static final String SERVICE_URL = "http://localhost:8080/koop/koop-ws/dashboard/ejecutar/";
 
 	public DashboardDefinition getDashboardForUser(String userId) {
 
 		// Cargo el dashboard para el usuario
-		DashboardDefinition dashboard = (DashboardDefinition) em
-				.createNamedQuery("ef_dashboard_for_user")
-				.setParameter("userId", userId).getSingleResult();
-
+		DashboardDefinition dashboard = null;
+		try {
+			dashboard = (DashboardDefinition) em
+					.createNamedQuery("ef_dashboard_for_user")
+					.setParameter("userId", userId).getSingleResult();
+		} catch (NoResultException _ex) {
+			return new DashboardDefinition();
+		}
+		
 		if (dashboard == null)
 			return new DashboardDefinition();
 
