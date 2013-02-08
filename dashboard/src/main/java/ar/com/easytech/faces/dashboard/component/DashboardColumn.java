@@ -49,16 +49,9 @@ public class DashboardColumn extends UIComponentBase {
                     for (UIComponent child : getChildren()) {
                         child.encodeAll(context);
                     }
-                }//renderer.encodeChildren(context, this);
-            }
-            // We've already logged for this component
-        } else {
-            if (getChildCount() > 0) {
-                for (UIComponent child : getChildren()) {
-                    child.encodeAll(context);
                 }
             }
-        }
+        } 
 	};
 	
 	@Override
