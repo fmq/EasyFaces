@@ -19,7 +19,9 @@
 package ar.com.easytech.faces.dashboard.component;
 
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
+import javax.faces.render.Renderer;
 
 @FacesComponent(DashboardColumn.COMPONENT_TYPE)
 public class DashboardColumn extends UIComponentBase {
@@ -32,6 +34,33 @@ public class DashboardColumn extends UIComponentBase {
 		setRendererType(RENDERER_TYPE);
 	}
 
+	@Override public void encodeChildren(javax.faces.context.FacesContext context) throws java.io.IOException {
+		if (context == null) {
+            throw new NullPointerException();
+        }
+        if (!isRendered()) {
+            return;
+        }
+        String rendererType = getRendererType();
+        if (rendererType != null) {
+            Renderer renderer = this.getRenderer(context);
+            if (renderer != null) {
+            	if (getChildCount() > 0) {
+                    for (UIComponent child : getChildren()) {
+                        child.encodeAll(context);
+                    }
+                }//renderer.encodeChildren(context, this);
+            }
+            // We've already logged for this component
+        } else {
+            if (getChildCount() > 0) {
+                for (UIComponent child : getChildren()) {
+                    child.encodeAll(context);
+                }
+            }
+        }
+	};
+	
 	@Override
 	public String getFamily() {
 		return COMPONENT_FAMILY;
