@@ -9,14 +9,18 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.ValueHolder;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 
 import ar.com.easytech.faces.utils.DataUtils;
@@ -142,6 +146,39 @@ public abstract class BaseRenderer extends Renderer {
 	    
 	   return clientId;
 		
+	}
+	
+	@Override
+	public Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
+			throws ConverterException {
+
+		if(!(component instanceof ValueHolder))
+            return null;
+        
+		// Try to find the converter
+		Converter converter = ((ValueHolder) component).getConverter();
+		
+		if (converter == null) 
+			converter = findByValueExpression(context, component);
+		
+		if (converter == null) 
+			return submittedValue;
+		
+		else
+			return converter.getAsObject(context, component, (String) submittedValue);
+		
+	}
+	
+	private Converter findByValueExpression(FacesContext context, UIComponent component) {
+		ValueExpression ve = component.getValueExpression("value");
+		if(ve != null) {
+            Class<?> valueType = ve.getType(context.getELContext());
+                
+            if(valueType != null)           
+                return context.getApplication().createConverter(valueType);
+        }
+		
+		return null;
 	}
 	
 }

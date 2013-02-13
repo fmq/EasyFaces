@@ -45,9 +45,17 @@ public class ChartManager implements Serializable {
 			str.append("[");
 
 			for (Object key : data.keySet()) {
-				str.append("[")
-					.append(key)
-					.append(",")
+				str.append("[");
+				
+				// Append the key as long and not as String if possible
+				try {
+					long lkey = (Long)key;
+					str.append(lkey);
+				} catch (Exception _ex) {
+				 str.append(key);
+				}
+					
+				str.append(",")
 					.append(data.get(key))
 					.append("],");
 			}

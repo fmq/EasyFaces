@@ -87,79 +87,80 @@ public class DashboardRenderer extends BaseRenderer {
 		//dashboard.setColumns(dashboardDefinition.getColumns());
 		dashboard.setInstanceId(dashboardDefinition.getId());
 		// Add columns
-		for (DashboardColumnLayout layout :  dashboardDefinition.getColumnLayout()) {
-			DashboardColumn col = new DashboardColumn();
-			col.setId("dash_" + layout.getId() + "_col");
-			col.setLayoutId(layout.getId());
-			col.setParent(dashboard);
-			switch (layout.getType()) {
-			case HORIZONAL:
-				col.setStyleClass("cols-1");
-				break;
-			case VERTICAL:
-				col.setStyleClass("cols-2");
-				break;
-			}
-			// Get widgets for each column
-			List<WidgetInstance> widgetsInstances = builder.getWidgetsForColumn(layout);
-
-			// Generate the widgets
-			for (WidgetInstance widgetInstance : widgetsInstances) {
-				Widget widget = widgetInstance.getWidget();
-				switch (widget.getType()) {
-				case PIE:
-					// Add content
-					PieChart pieChart = new PieChart();
-					String data = builder.getWidgetData(widget, dashboard.getUserId());
-					pieChart.setData(data);
-					pieChart.setInstanceId(widgetInstance.getInstanceId());
-					pieChart.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_pie");
-					pieChart.setTitle(widget.getTitle());
-					pieChart.setWidth(widget.getWidth());
-					pieChart.setHeight(widget.getHeight());
-					if (widget.getStyleClass() != null)
-						pieChart.setStyleClass(widget.getStyleClass());
-					// Encode
-					col.getChildren().add(pieChart);
+		if (dashboardDefinition != null && dashboardDefinition.getColumnLayout() != null) {
+			for (DashboardColumnLayout layout :  dashboardDefinition.getColumnLayout()) {
+				DashboardColumn col = new DashboardColumn();
+				col.setId("dash_" + layout.getId() + "_col");
+				col.setLayoutId(layout.getId());
+				col.setParent(dashboard);
+				switch (layout.getType()) {
+				case HORIZONAL:
+					col.setStyleClass("cols-1");
 					break;
-				case CHART:
-					Chart chart = new Chart();
-					String chartData = builder.getWidgetData(widget,dashboard.getUserId());
-					chart.setData(chartData);
-					chart.setInstanceId(widgetInstance.getInstanceId());
-					chart.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_chart");
-					chart.setTitle(widget.getTitle());
-					chart.setWidth(widget.getWidth());
-					chart.setHeight(widget.getHeight());
-					if (widget.getStyleClass() != null)
-						chart.setStyleClass(widget.getStyleClass());
-					// Encode
-					col.getChildren().add(chart);
-					break;
-				case TABLE:
-					DataTable table = new DataTable();
-					table.setHeaders(new ArrayList<String>(Arrays.asList(widget.getAdditionalData().split(","))));
-					table.setData(builder.getWidgetDataAsList(widget,dashboard.getUserId()));
-					table.setInstanceId(widgetInstance.getInstanceId());
-					table.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_table");
-					table.setTitle(widget.getTitle());
-					table.setWidth(widget.getWidth());
-					table.setHeight(widget.getHeight());
-					if (widget.getStyleClass() != null)
-						table.setStyleClass(widget.getStyleClass());
-					// Encode
-					col.getChildren().add(table);
-					break;
-				default:
+				case VERTICAL:
+					col.setStyleClass("cols-2");
 					break;
 				}
-			}
-			
-			col.encodeBegin(context);
-			col.encodeChildren(context);
-			col.encodeEnd(context);
-		}
+				// Get widgets for each column
+				List<WidgetInstance> widgetsInstances = builder.getWidgetsForColumn(layout);
 	
+				// Generate the widgets
+				for (WidgetInstance widgetInstance : widgetsInstances) {
+					Widget widget = widgetInstance.getWidget();
+					switch (widget.getType()) {
+					case PIE:
+						// Add content
+						PieChart pieChart = new PieChart();
+						String data = builder.getWidgetData(widget, dashboard.getUserId());
+						pieChart.setData(data);
+						pieChart.setInstanceId(widgetInstance.getInstanceId());
+						pieChart.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_pie");
+						pieChart.setTitle(widget.getTitle());
+						pieChart.setWidth(widget.getWidth());
+						pieChart.setHeight(widget.getHeight());
+						if (widget.getStyleClass() != null)
+							pieChart.setStyleClass(widget.getStyleClass());
+						// Encode
+						col.getChildren().add(pieChart);
+						break;
+					case CHART:
+						Chart chart = new Chart();
+						String chartData = builder.getWidgetData(widget,dashboard.getUserId());
+						chart.setData(chartData);
+						chart.setInstanceId(widgetInstance.getInstanceId());
+						chart.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_chart");
+						chart.setTitle(widget.getTitle());
+						chart.setWidth(widget.getWidth());
+						chart.setHeight(widget.getHeight());
+						if (widget.getStyleClass() != null)
+							chart.setStyleClass(widget.getStyleClass());
+						// Encode
+						col.getChildren().add(chart);
+						break;
+					case TABLE:
+						DataTable table = new DataTable();
+						table.setHeaders(new ArrayList<String>(Arrays.asList(widget.getAdditionalData().split(","))));
+						table.setData(builder.getWidgetDataAsList(widget,dashboard.getUserId()));
+						table.setInstanceId(widgetInstance.getInstanceId());
+						table.setId("widg_" + widgetInstance.getLayoutId() + "_" + widgetInstance.getInstanceId() +  "_table");
+						table.setTitle(widget.getTitle());
+						table.setWidth(widget.getWidth());
+						table.setHeight(widget.getHeight());
+						if (widget.getStyleClass() != null)
+							table.setStyleClass(widget.getStyleClass());
+						// Encode
+						col.getChildren().add(table);
+						break;
+					default:
+						break;
+					}
+				}
+				
+				col.encodeBegin(context);
+				col.encodeChildren(context);
+				col.encodeEnd(context);
+			}
+		}
 		ResponseWriter writer = context.getResponseWriter();
 		writer.endElement("div");
 		// Javascript call

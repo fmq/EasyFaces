@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
@@ -47,13 +48,16 @@ public class DashboardBuilderBean implements Serializable {
 	public DashboardDefinition getDashboardForUser(String userId) {
 
 		// Cargo el dashboard para el usuario
-		DashboardDefinition dashboard = null;
+		DashboardDefinition dashboard = new DashboardDefinition();
+		dashboard.setColumnLayout(new ArrayList<DashboardColumnLayout>());
+		
 		try {
 			dashboard = (DashboardDefinition) em
 					.createNamedQuery("ef_dashboard_for_user")
 					.setParameter("userId", userId).getSingleResult();
-		} catch (NoResultException _ex) {
-			return new DashboardDefinition();
+		} catch (Exception _ex) {
+			Logger.getLogger(DashboardBuilderBean.class.getSimpleName()).log(Level.FINE, "Error obteniendo dashboard: {0}", _ex.getLocalizedMessage() );
+			return dashboard;
 		}
 		
 		if (dashboard == null)

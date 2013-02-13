@@ -38,21 +38,25 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 			Arrays.asList("blur","change","valueChange","click","dblclick","focus","keydown","keypress","keyup","mousedown","mousemove","mouseout","mouseover","mouseup","select"));
 	
 	String[] JS_ACTIONS = {"onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown"};
+	// List with data returned from method from BB to use as source
+	private List<Object> sourceData = new ArrayList<Object>();
+	private int x, y, width;
 	
+	public Autocomplete() {
+		super();
+		setRendererType(RENDERER_TYPE);
+	}
 	
 	@Override
     public Collection<String> getEventNames() {
         return EVENT_NAMES;
     }
 	
-	// List with data returned from method from BB to use as source
-	private List<Object> sourceData = new ArrayList<Object>();
-	private int x, y, width;
-	
-	public Autocomplete() {
-		setRendererType(RENDERER_TYPE);
+	@Override
+	public String getDefaultEventName() {
+		return "change";
 	}
-
+	
 	// Attributes
 	public String getStyle() {
 		return (String) getStateHelper().eval(PropertyKeys.style);
