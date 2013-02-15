@@ -158,6 +158,9 @@ public class AutocompleteRenderer extends BaseRenderer {
 		if (autocomplete.getStyleClass() != null)
 			sClass += autocomplete.getStyleClass();
 		writer.writeAttribute("class", sClass, null);
+		//Render pt attributes
+		ComponentUtils.renderPtAttributes(autocomplete, writer, autocomplete.getPtAttributes());
+		
 		// Render JS actions
 		encodeJsActions(context, autocomplete, writer);
 		

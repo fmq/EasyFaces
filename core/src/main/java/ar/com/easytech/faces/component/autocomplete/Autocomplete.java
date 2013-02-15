@@ -1,5 +1,7 @@
 package ar.com.easytech.faces.component.autocomplete;
 
+import static com.sun.faces.renderkit.Attribute.attr;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,6 +40,7 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 			Arrays.asList("blur","change","valueChange","click","dblclick","focus","keydown","keypress","keyup","mousedown","mousemove","mouseout","mouseover","mouseup","select"));
 	
 	String[] JS_ACTIONS = {"onclick", "ondblclick", "onmousedown", "onmouseup", "onmouseover", "onmousemove", "onmouseout", "onkeypress", "onkeydown"};
+	String[] ptAttributes = {"accesskey","alt","dir","lang","maxlength","size","tabindex","title"};
 	// List with data returned from method from BB to use as source
 	private List<Object> sourceData = new ArrayList<Object>();
 	private int x, y, width;
@@ -211,5 +214,22 @@ public class Autocomplete extends UIInput implements ClientBehaviorHolder {
 	public int getWidth() {
 		return width;
 	}
+
+	public String[] getJS_ACTIONS() {
+		return JS_ACTIONS;
+	}
+
+	public void setJS_ACTIONS(String[] jS_ACTIONS) {
+		JS_ACTIONS = jS_ACTIONS;
+	}
+
+	public String[] getPtAttributes() {
+		return ptAttributes;
+	}
+
+	public void setPtAttributes(String[] ptAttributes) {
+		this.ptAttributes = ptAttributes;
+	}
+	
 	
 }

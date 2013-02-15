@@ -169,5 +169,15 @@ public class ComponentUtils {
 		return null;
 	}
 
+	public static void renderPtAttributes(UIComponent component, ResponseWriter writer, String[] attributes) throws IOException {
+		// Loop the attributes and if defined render them
+		for (int i=0 ; i < attributes.length ; i++) {
+			String att = attributes[i];
+			String value = (String) component.getAttributes().get(att);
+			
+			if (value != null && !value.equals("") )
+				writer.writeAttribute(att, value, null);
+		}
+	}
     
 }
